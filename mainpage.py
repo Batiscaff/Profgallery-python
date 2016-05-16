@@ -23,7 +23,7 @@ class mainPage(unittest.TestCase):
     def test_applicantReg(self):
         driver = self.driver
         driver.get(self.base_url + "/")
-
+        driver.maximize_window()
         #Выбираем меню, которое будем автоматизировать
         menu_elements = driver.find_elements_by_css_selector('div.menu > ul > li')
         #Наводим на него мышку, иначе работать не будет
