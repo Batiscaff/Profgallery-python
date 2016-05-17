@@ -17,6 +17,7 @@ class mainPage(unittest.TestCase):
         #Базовый урл
         self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
 
+    # Функция завершения работы браузера.
     def tearDown(self):
         self.driver.quit()
 
@@ -44,9 +45,9 @@ class mainPage(unittest.TestCase):
             except: pass
             time.sleep(1)
         else: self.fail("time out")
-
-        #Функция завершения работы браузера.
-
+        #Проверяем загружена ли страница кликом на кнопку "редактировать"
+        driver.find_element_by_xpath("//div[@id='block']/a").click()
+        #time.sleep(5)
 
 #Собираем наши  тесты в один общий тест
 if __name__ == "__main__":
