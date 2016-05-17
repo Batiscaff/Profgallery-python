@@ -23,7 +23,10 @@ class guestSerch(unittest.TestCase):
         driver.find_element_by_id("search-submit-btn").click()
         driver.find_element_by_xpath("//ul[@id='result-list']/li[2]").click()
         #Перевлючаемся на активное
-        driver.switch_to_active_element()
-        ActionChains.move_to_element(driver.find_element_by_link_text(u"Откликнуться на вакансию")).click().perform()
-        #driver.find_element_by_link_text(u"Откликнуться на вакансию").click()
+        main_window = driver.current_window_handle
+        other_windows = [win for win in driver.window_handles if win != main_window]
+        driver.switch_to_window(other_windows[0])
+
+        driver.find_element_by_xpath("//div[@id='company-info']/div/div[2]/div[4]/a").click()
+
 
