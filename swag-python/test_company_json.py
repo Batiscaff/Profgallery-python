@@ -33,7 +33,6 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         print rest
-        print url
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 

@@ -27,12 +27,13 @@ class test_Statistic(unittest.TestCase):
         global accessToken
         accessToken =  rest["items"]["accessToken"]
 
-    def test_statistic(self):
+    """def test_statistic(self):
         url = self.base_url +"statistic/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus,"success")
+        self.assertEqual(checkStatus,"success")"""
 
     def test_vocabulary(self):
         url = self.base_url + "vocabulary/options/"
