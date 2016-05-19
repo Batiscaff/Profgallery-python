@@ -29,7 +29,7 @@ class test_regUser(unittest.TestCase):
         accessToken =  str(rest["items"]["accessToken"])
 
     def test_vacancy_id(self):
-        url = self.base_url + "vacancy/" + uid +"/?token=" + accessToken
+        url = self.base_url + "vacancy/" + vacId +"/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -41,6 +41,9 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+
+        global vacId
+        vacId = str(rest["items"][0]["id"])
 
 
 if __name__ == "__main__":
