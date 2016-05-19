@@ -23,16 +23,13 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
 
         #Запоминаем для дальнейшей работы
-        global uid
-        uid = rest["items"]["id"]
         global accessToken
         accessToken =  rest["items"]["accessToken"]
 
     def test_company_id(self):
-        url = self.base_url + "company/" + str(uid) + "/?token=" + str(accessToken)
+        url = self.base_url + "company/" + str(uId) + "/?token=" + str(accessToken)
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
@@ -40,5 +37,9 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "company/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
+
+        #Запоминаем ID компании
+        uId = rest["items"][0]["id"]
