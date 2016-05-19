@@ -111,16 +111,19 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-
+    """
     def test_w_applicant_update(self):
         url = self.base_url +"applicant/" + uid + "/update/?token=" + accessToken
+        print url
         userInfo = {
-          "institution": "string",
+            "fieldName": "skills",
+            "fieldValue": "string"
         }
         r = requests.post(url,json.dumps(userInfo),self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
+        self.assertEqual(checkStatus, "success")"""
 
     def test_w_applicant_id_stats(self):
         url = self.base_url +"applicant/" + uid + "/stats/?token=" + accessToken
