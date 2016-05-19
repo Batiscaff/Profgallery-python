@@ -13,7 +13,7 @@ class test_regUser(unittest.TestCase):
     def test_register_user(self):
         url = self.base_url + "/api/user/register/"
         userInfo = {
-            "login": "test_" + str(randint(1000,9999)) + "@blalba.ru",
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
             "password": "string",
             "type": "4"}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)

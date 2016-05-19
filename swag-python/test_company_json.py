@@ -13,7 +13,7 @@ class test_regUser(unittest.TestCase):
     def test_a_register_user_recruter(self):
         url = self.base_url + "user/register/"
         userInfo = {
-            "login": "test_" + str(randint(1000,9999)) + "@blalba.ru",
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
             "password": "string",
             "type": "8"}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
@@ -37,7 +37,6 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "company/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 

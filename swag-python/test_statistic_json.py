@@ -14,7 +14,7 @@ class test_Statistic(unittest.TestCase):
     def test_a_register_user_recruter(self):
         url = self.base_url + "user/register/"
         userInfo = {
-            "login": "test_" + str(randint(1000,9999)) + "@blalba.ru",
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
             "password": "string",
             "type": "8"}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
@@ -31,7 +31,6 @@ class test_Statistic(unittest.TestCase):
         url = self.base_url +"statistic/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")"""
 
@@ -40,7 +39,12 @@ class test_Statistic(unittest.TestCase):
         userInfo = {
             "optionNames": "string"
         }
-        r = requests.post(url,json.dumps(userInfo),self.head)
+
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
 if __name__ == "__main__":
     unittest.main()

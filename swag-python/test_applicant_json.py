@@ -11,17 +11,18 @@ class test_regUser(unittest.TestCase):
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
 
-    def test_a_register_user(self):
+    def test_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
-            "login": "test_" + str(randint(1000, 9999)) + "@blalba.ru",
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
             "password": "string",
             "type": "4"}
-        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        # Проверка на success
+        print url
+        #Проверка на success
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
+        self.assertEqual(checkStatus,"success")
 
         # Запоминаем для дальнейшей работы
         global uid
@@ -67,17 +68,18 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_w_aapplicant_id_education_new(self):
-        url = self.base_url +"applicant/" + uid + "/education/?token=" + accessToken
+        url = self.base_url +"applicant/" + uid + "/education/new/?token=" + accessToken
         userInfo = {
+          "id": 0,
           "institution": "string",
           "speciality": "string",
-          "endYear": "string",
+          "endYear": 2012,
           "faculty": "string",
-          "eduLevel": "string",
-          "eduType": "string",
+          "eduLevel": 0,
+          "eduType": 0,
           "isAdditional": 0,
-          "degree": "string",
-          "beginYear": "string",
+          "degree": 0,
+          "beginYear": 2007,
           "cdate": "string",
           "mdate": "string",
           "completed": 0,
@@ -85,45 +87,44 @@ class test_regUser(unittest.TestCase):
           "certificate": "string"
         }
 
-        r = requests.post(url,json.dumps(userInfo),self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
         global eduID
-        eduID = rest["id"]
+        eduID = str(rest["items"]["id"])
 
     def test_w_applicant_id_education_update(self):
         url = self.base_url +"applicant/" + uid + "/education/" + eduID +"/update/?token=" + accessToken
-
         userInfo = {
-          "institution": "string",
+          "fieldName": "faculty",
+          "fieldValue": "string"
         }
 
-        r = requests.post(url,json.dumps(userInfo),self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_education_eduId_delete(self):
+    def test_w_applicant_id_education_z_eduId_delete(self):
         url = self.base_url +"applicant/" + uid + "/education/" + eduID +"/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-    """
+
+
     def test_w_applicant_update(self):
         url = self.base_url +"applicant/" + uid + "/update/?token=" + accessToken
-        print url
         userInfo = {
             "fieldName": "skills",
             "fieldValue": "string"
         }
-        r = requests.post(url,json.dumps(userInfo),self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")"""
+        self.assertEqual(checkStatus, "success")
 
     def test_w_applicant_id_stats(self):
         url = self.base_url +"applicant/" + uid + "/stats/?token=" + accessToken
@@ -142,7 +143,6 @@ class test_regUser(unittest.TestCase):
     def test_w_applicant_goal_add(self):
         url = self.base_url +"applicant/" + uid + "/goal/add/?token=" + accessToken
         userInfo = {
-          "userId": 0,
           "title": "string",
           "description": "string",
           "salaryMonthMin": 0,
@@ -152,13 +152,14 @@ class test_regUser(unittest.TestCase):
           "geoId": 0,
           "availabilityOfGoal": 0
         }
-        r = requests.post(url,json.dumps(userInfo),self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
         global goalID
-        goalID = rest['item']["id"]
+        goalID = str(rest['items']["id"])
 
     def test_w_applicant_id_goal_goalID(self):
         url = self.base_url +"applicant/" + uid + "/goals/?token=" + accessToken
@@ -168,19 +169,19 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_w_applicant_id_goal_update(self):
-        url = self.base_url +"applicant/" + uid + "/goal/" + eduID +"/update/?token=" + accessToken
+        url = self.base_url +"applicant/" + uid + "/goal/" + goalID +"/update/?token=" + accessToken
 
         userInfo = {
-          "description": "string-1",
+          "fieldName": "title",
+          "fieldValue": "string"
         }
-
-        r = requests.post(url,json.dumps(userInfo),self.head)
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_goal_delete(self):
-        url = self.base_url +"applicant/" + uid + "/goal/" + eduID +"/delete/?token=" + accessToken
+    def test_w_applicant_id_goal_z_delete(self):
+        url = self.base_url +"applicant/" + uid + "/goal/" + goalID +"/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
