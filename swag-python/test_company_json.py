@@ -42,4 +42,5 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
 
         #Запоминаем ID компании
+        global uId
         uId = rest["items"][0]["id"]
