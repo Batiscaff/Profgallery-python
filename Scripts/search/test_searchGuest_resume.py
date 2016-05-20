@@ -11,22 +11,14 @@ class guestSerch(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_guestVacancySearch_button_more(self):
+    def test_guestResumeSearch_and_open(self):
         driver = self.driver
-        driver.get(self.base_url + "/applicant/search/")
-        driver.maximize_window()
-        driver.find_element_by_id("search-submit-btn").click()
-        driver.find_element_by_xpath("//*[@id='sform']/div[2]/div[1]/div/div[2]/a").click()
-        self.assertEqual(u"Для продолжения просмотра, пожалуйста, зарегистрируйтесь или авторизуйтесь",driver.find_element_by_css_selector("div.tit.showhide").text)
-
-    def test_guestVacancySearch_and_open(self):
-        driver = self.driver
-        driver.get(self.base_url + "/applicant/search/")
+        driver.get(self.base_url + "/employee/search/")
         driver.maximize_window()
         #driver.save_screenshot("screen.png")
         #Находим элемент с ID = search-submit-btn (кнопка "Найти") и
         driver.find_element_by_id("search-submit-btn").click()
-        driver.find_element_by_xpath("//*[@id='result-list']/li[1]/div[2]/div[1]/div").click()
+        driver.find_element_by_xpath(".//*[@id='result-list']/li[1]/div[2]/div[1]/div").click()
         #Перевлючаемся на активное
         main_window = driver.current_window_handle
         other_windows = [win for win in driver.window_handles if win != main_window]

@@ -12,11 +12,9 @@ class mainPage(unittest.TestCase):
     #Настрйоки опций
     def setUp(self):
         #Выбор браузера
-        self.driver = webdriver.Firefox()
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
         self.driver.implicitly_wait(30)
         #Базовый урл
-        #self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
 
     # Функция завершения работы браузера.
     def tearDown(self):
