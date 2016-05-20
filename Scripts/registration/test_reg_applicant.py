@@ -3,6 +3,7 @@
 
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
 from random import randint
 import unittest,time
 
@@ -15,7 +16,7 @@ class mainPage(unittest.TestCase):
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
         self.driver.implicitly_wait(30)
         #Базовый урл
-        self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
+        #self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
 
     # Функция завершения работы браузера.
     def tearDown(self):
@@ -45,10 +46,20 @@ class mainPage(unittest.TestCase):
             except: pass
             time.sleep(1)
         else: self.fail("time out")
-        #Проверяем загружена ли страница кликом на кнопку "редактировать"
-        driver.find_element_by_xpath("//div[@id='block']/a").click()
-        #time.sleep(5)
 
-#Собираем наши  тесты в один общий тест
+        #Заполняем профиль
+        driver.find_element_by_xpath("//*[@id='personal-block']/a").click()
+        driver.find_element_by_id("uLastName").send_keys(u"ФамилияТестовая")
+        driver.find_element_by_id("uFirstName").send_keys(u"ИмяТестовое")
+        driver.find_element_by_id("uPatronymic").send_keys(u"ОтчествоТестовое")
+        driver.find_element_by_id("select2-countryID-container").click()
+        select = driver.find_element_by_id("select2-countryID-container")
+        select.send_keys(Keys.ARROW_DOWN)
+        time.sleep(10)
+
+
+        driver.find_element_by_xpath("//div[@id='block']/a").click()
+
 if __name__ == "__main__":
     unittest.main()
+#Собираем наши  тесты в один общий тест
