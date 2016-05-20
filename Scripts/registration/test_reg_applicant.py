@@ -13,6 +13,7 @@ class mainPage(unittest.TestCase):
     def setUp(self):
         #Урл
         self.base_url = sys.argv[1]
+        print self.base_url
         #Выбор браузера
         self.driver = webdriver.Firefox()
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
