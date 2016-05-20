@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
-import unittest
+import unittest,time
 
 class guestSerch(unittest.TestCase):
     def setUp(self):
+        self.driver = webdriver.Chrome()
         self.driver.implicitly_wait(30)
 
     def tearDown(self):
@@ -25,5 +26,6 @@ class guestSerch(unittest.TestCase):
         driver.switch_to_window(other_windows[0])
 
         #Убеждаемся, что мы зашли на страницу, нажав на кнопку "редактировать"
-        driver.find_element_by_xpath("//div[@id='company-info']/div/div[2]/div[4]/a").click()
+        time.sleep(10)
+        #driver.find_element_by_xpath("//div[@id='company-info']/div/div[2]/div[4]/a").click()
 

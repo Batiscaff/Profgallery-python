@@ -12,10 +12,9 @@ class mainPage(unittest.TestCase):
     #Настрйоки опций
     def setUp(self):
         #Выбор браузера
+        self.driver = webdriver.Chrome()
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
         self.driver.implicitly_wait(30)
-        #Базовый урл
-
     # Функция завершения работы браузера.
     def tearDown(self):
         self.driver.quit()
