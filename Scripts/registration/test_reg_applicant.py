@@ -5,14 +5,16 @@ from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from random import randint
-import unittest,time
+import unittest,time, sys
 
 
 class mainPage(unittest.TestCase):
     #Настрйоки опций
     def setUp(self):
+        #Урл
+        self.base_url = sys.argv[1]
         #Выбор браузера
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Firefox()
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
         self.driver.implicitly_wait(30)
     # Функция завершения работы браузера.
