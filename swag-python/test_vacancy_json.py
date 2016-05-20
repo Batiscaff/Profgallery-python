@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import random
+
 import unittest,json, requests
 
 
@@ -42,13 +42,10 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-
         global vacId
-        vacIdMax = int(rest["items"][-1]["id"])
-        vacIdMin = int(rest["items"][0]["id"])
-        random
-        vacId = str(randint(vacIdMin,vacIdMax))
-        print vacId
+        vacId = randint(0,len(rest["items"]))
+        vacId = str(rest["items"][vacId]["id"])
+
 
 
 if __name__ == "__main__":
