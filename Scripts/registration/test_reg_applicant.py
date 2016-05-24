@@ -118,7 +118,7 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='leadingExperience']").send_keys(randint(1,50))
         driver.find_element_by_xpath("//*[@id='projectExperience']").send_keys(randint(1,50))
         driver.find_element_by_xpath("//*[@id='budgetControlSum']").send_keys(randint(1000000,5000000))
-        driver.find_element_by_xpath("//*[@id='block']/form/div[3]/input").click()
+        driver.find_element_by_xpath("//div[5]/form/div[3]/input").click()
 
         #Ключевые навыки
         driver.find_element_by_xpath("//div[3]/div[6]/a").click()
