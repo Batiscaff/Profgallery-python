@@ -67,8 +67,8 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(u"Москва")
         driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(Keys.ENTER)
 
-        driver.find_element_by_xpath("//input[@id='uPhone']").send_keys(randint(89000000000,89999999999))
-        driver.find_element_by_xpath("//input[@id='uPhone2']").send_keys(randint(89000000000,89999999999))
+        #driver.find_element_by_xpath("//input[@id='uPhone']").send_keys(randint(89000000000,89999999999))
+        #   driver.find_element_by_xpath("//input[@id='uPhone2']").send_keys(randint(89000000000,89999999999))
         driver.find_element_by_xpath("//*[@id='formUser']/div[11]/input").click()
 
 
