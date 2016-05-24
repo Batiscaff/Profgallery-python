@@ -15,7 +15,6 @@ class mainPage(unittest.TestCase):
     def setUp(self):
         #Урл
         self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
-        print self.base_url
         #Выбор браузера
         self.driver = webdriver.Firefox()
         #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
@@ -69,7 +68,7 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(Keys.ENTER)
 
         driver.find_element_by_css_selector("#uPhone").send_keys(randint(89000000000,89999999999))
-        driver.find_element_by_css_selector("#uPhone2").send_keys(randint(89000000000,89999999999))
+        #driver.find_element_by_css_selector("#uPhone2").send_keys(randint(89000000000,89999999999))
         driver.find_element_by_xpath("//*[@id='formUser']/div[11]/input").click()
 
 
