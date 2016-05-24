@@ -1,24 +1,27 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: cp1251 -*-
 
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from random import randint
-import unittest,time, sys
+import unittest,time
+
 
 
 class mainPage(unittest.TestCase):
-    #РќР°СЃС‚СЂР№РѕРєРё РѕРїС†РёР№
+
+    #Настрйоки опций
     def setUp(self):
-        #РЈСЂР»
-        self.base_url = sys.argv[1]
+        #Урл
+        self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
         print self.base_url
-        #Р’С‹Р±РѕСЂ Р±СЂР°СѓР·РµСЂР°
+        #Выбор браузера
         self.driver = webdriver.Firefox()
-        #РќР°СЃС‚СЂР№РѕРєРё РѕР¶РёРґР°РЅРёСЏ (РЎРєРѕР»СЊРєРѕ Р¶РґР°С‚СЊ РїРµСЂРµРґ С‚РµРј, РєР°Рє РїСЂРµСЂРІР°С‚СЊ С‚РµСЃС‚)
+        #Настрйоки ожидания (Сколько ждать перед тем, как прервать тест)
         self.driver.implicitly_wait(30)
-    # Р¤СѓРЅРєС†РёСЏ Р·Р°РІРµСЂС€РµРЅРёСЏ СЂР°Р±РѕС‚С‹ Р±СЂР°СѓР·РµСЂР°.
+
+    # Функция завершения работы браузера.
     def tearDown(self):
         self.driver.quit()
 
@@ -26,40 +29,113 @@ class mainPage(unittest.TestCase):
         driver = self.driver
         driver.get(self.base_url + "/")
         driver.maximize_window()
-        #Р’С‹Р±РёСЂР°РµРј РјРµРЅСЋ, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµРј Р°РІС‚РѕРјР°С‚РёР·РёСЂРѕРІР°С‚СЊ
+        #Выбираем меню, которое будем автоматизировать
         menu_elements = driver.find_elements_by_css_selector('div.menu > ul > li')
-        #РќР°РІРѕРґРёРј РЅР° РЅРµРіРѕ РјС‹С€РєСѓ, РёРЅР°С‡Рµ СЂР°Р±РѕС‚Р°С‚СЊ РЅРµ Р±СѓРґРµС‚
+        #Наводим на него мышку, иначе работать не будет
         ActionChains(driver).move_to_element(menu_elements[2]).perform()
-        #РС‰РµРј РїРѕ css РєРЅРѕРїРєСѓ, СЃ РёРјРµРЅРµРј li.registration-btn Рё РЅР°Р¶РёРјР°РµРј РЅР° РЅРµС‘ click()
+        #Ищем по css кнопку, с именем li.registration-btn и нажимаем на неё click()
         driver.find_element_by_css_selector('li.registration-btn').click()
         driver.find_element_by_css_selector('a[data-reg=applicant]').click()
-        #Р’Р±РёСЂР°РµРј РїРѕР»Рµ, СЃ РёРјРµРЅРµРј uEmailРё РІРІРѕРґРёРј (send_keys) Р·РЅР°С‡РµРЅРёСЏ
+        #Вбираем поле, с именем uEmailи вводим (send_keys) значения
         driver.find_element_by_css_selector('input[name="uEmail"]').send_keys("applicant" + str(randint(1000,9999)) + "@test.test")
         driver.find_element_by_css_selector('input[name="uPassword"]').send_keys("12345678")
         driver.find_element_by_css_selector('input[name="uPasswordConfirm"]').send_keys("12345678")
         driver.find_element_by_css_selector('input[name="regCaptchaCode"]').send_keys("12345678")
         driver.find_element_by_css_selector('input.custom-btn.green').click()
-        #РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РјС‹ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ Рё РµСЃС‚СЊ Р±Р»РѕРє "РћРїС‹С‚ СЂР°Р±РѕС‚С‹"
+        #Проверяем, что мы зарегистрированы и есть блок "Опыт работы"
         for i in range(10):
             try:
-                if u"РћРїС‹С‚ СЂР°Р±РѕС‚С‹" == driver.find_element_by_xpath("(//div[@id='block']/div)[10]").text: break
+                if u"Опыт работы" == driver.find_element_by_xpath("(//div[@id='block']/div)[10]").text: break
             except: pass
             time.sleep(1)
         else: self.fail("time out")
 
-        #Р—Р°РїРѕР»РЅСЏРµРј РїСЂРѕС„РёР»СЊ
+        #Заполняем профиль
         driver.find_element_by_xpath("//*[@id='personal-block']/a").click()
-        driver.find_element_by_id("uLastName").send_keys(u"Р¤Р°РјРёР»РёСЏРўРµСЃС‚РѕРІР°СЏ")
-        driver.find_element_by_id("uFirstName").send_keys(u"РРјСЏРўРµСЃС‚РѕРІРѕРµ")
-        driver.find_element_by_id("uPatronymic").send_keys(u"РћС‚С‡РµСЃС‚РІРѕРўРµСЃС‚РѕРІРѕРµ")
-        driver.find_element_by_id("select2-countryID-container").click()
-        select = driver.find_element_by_id("select2-countryID-container")
-        select.send_keys(Keys.ARROW_DOWN)
-        time.sleep(10)
+        driver.find_element_by_id("uLastName").send_keys(u"ФамилияТестовая")
+        driver.find_element_by_id("uFirstName").send_keys(u"ИмяТестовое")
+        driver.find_element_by_id("uPatronymic").send_keys(u"ОтчествоТестовое")
+        #driver.find_element_by_id("select2-countryID-container").click()
+
+        country_block = driver.find_element_by_id('countryID').find_element_by_xpath('..')
+        country_block.find_element_by_css_selector('span.select2-selection__arrow').click()
+
+        country_list = driver.find_elements_by_css_selector('ul#select2-countryID-results li')
+        country_list[1].click()
+        time.sleep(1)
+
+        driver.find_element_by_xpath("//*[@id='select2-cityID-container']").click()
+        driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(u"Москва")
+        driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(Keys.ENTER)
+
+        driver.find_element_by_css_selector("#uPhone").send_keys(randint(89000000000,89999999999))
+        driver.find_element_by_css_selector("#uPhone2").send_keys(randint(89000000000,89999999999))
+        driver.find_element_by_xpath("//*[@id='formUser']/div[11]/input").click()
 
 
-        driver.find_element_by_xpath("//div[@id='block']/a").click()
+        #Заполняем карьерную цель
+        driver.find_element_by_xpath("//div[3]/div/a").click()
+        driver.find_element_by_xpath("//*[@id='careerGoals']").send_keys(u"Карьерная цель")
+        driver.find_element_by_xpath("//*[@id='block']/form/div/input").click()
+
+        #Заполняем "текущий уровень дохода"
+        driver.find_element_by_xpath("//div[3]/div[2]/a").click()
+        driver.find_element_by_xpath("//*[@id='currentSalary']").send_keys(randint(50000,60000))
+        driver.find_element_by_xpath("//*[@id='csAnnual']").send_keys(randint(500000, 600000))
+        driver.find_element_by_xpath("//*[@id='block']/form/div[4]/input").click()
+
+        #Заполняем "желаемый уровень дохода"
+        driver.find_element_by_xpath("//div[3]/div[3]/a").click()
+        driver.find_element_by_xpath("//*[@id='expectedSalary']").send_keys(randint(50000,60000))
+        driver.find_element_by_xpath("//*[@id='esAnnual']").send_keys(randint(500000, 600000))
+        driver.find_element_by_xpath("//*[@id='block']/form/div[3]/input").click()
+
+        #Заполняем опыт работы
+        driver.find_element_by_xpath("//div[3]/div[4]/a").click()
+        driver.find_element_by_xpath("//*[@id='experience-ctName']").send_keys(u"Тестовое название компании")
+        driver.find_element_by_xpath("//*[@id='beginYear']").send_keys(randint(1999,2005))
+        driver.find_element_by_xpath("//*[@id='endYear']").send_keys(randint(2006,2010))
+        driver.find_element_by_xpath("//*[@id='new-company']/a").click()
+        driver.find_element_by_xpath("//*[@id='experience-edit-form']/div[2]/div[5]/div[1]/label[2]").click()
+        driver.find_element_by_xpath("//input[@id='nn3']").click()
+        driver.find_element_by_xpath("//*[@id='industryInput']").send_keys(u"Автомобильный бизнес")
+        time.sleep(1)
+        driver.find_element_by_xpath("//*[@id='13503']").click()
+        driver.find_element_by_xpath("//*[@id='experience-position']").send_keys(u"Тестовая Занимаемая Должность")
+        driver.find_element_by_xpath("//*[@id='13307']").click()
+        driver.find_element_by_xpath("//*[@id='experience-edit-form']/div[2]/div[9]/div[1]/div/div").click()
+        driver.find_element_by_xpath("//*[@id='11551']").click()
+        driver.find_element_by_xpath("//*[@id='modalMy']/div[3]/input").click()
+        driver.find_element_by_xpath("//*[@id='experience-edit-form']/div[2]/div[9]/div[2]/ul/li/span/input").click()
+        driver.find_element_by_xpath("//*[@id='subordinate']").send_keys(u"Уровень Подчинения")
+        driver.find_element_by_xpath("//*[@id='directSubCount']").send_keys(randint(10,50))
+        driver.find_element_by_xpath("//*[@id='experience-edit-form']/div[2]/div[10]/div[2]/div[2]/div").send_keys(u" Функциональные обязанности! Функциональные обязанности! Функциональные обязанности! Функциональные обязанности! Функциональные обязанности! Функциональные обязанности! Функциональные обязанности!")
+        driver.find_element_by_xpath("//*[@id='experience-edit-form']/div[2]/div[11]/input").click()
+
+        #Профессиональные и управленческие характеристики
+        driver.find_element_by_xpath("//div[3]/div[5]/a").click()
+        driver.find_element_by_xpath("//*[@id='commonExperience']").send_keys(randint(1,50))
+        driver.find_element_by_xpath("//*[@id='leadingExperience']").send_keys(randint(1,50))
+        driver.find_element_by_xpath("//*[@id='projectExperience']").send_keys(randint(1,50))
+        driver.find_element_by_xpath("//*[@id='budgetControlSum']").send_keys(randint(1000000,5000000))
+        driver.find_element_by_xpath("//*[@id='block']/form/div[3]/input").click()
+
+        #Ключевые навыки
+        driver.find_element_by_xpath("//div[3]/div[6]/a").click()
+        driver.find_element_by_xpath("//*[@id='block']/form/div[2]/div[2]/div").send_keys(u"Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки!")
+        driver.find_element_by_xpath("//*[@id='block']/form/div[3]/input").click()
+
+        #Образование
+        driver.find_element_by_xpath("//div[3]/div[7]/a").click()
+        driver.find_element_by_xpath("//*[@id='institution']").send_keys(u"Образовательное учереждение")
+        driver.find_element_by_xpath("//*[@id='faculty']").send_keys(u"Факультет")
+        driver.find_element_by_xpath("//*[@id='specialty']").send_keys(u"Специальность")
+        driver.find_element_by_xpath("//*[@id='beginYear']").send_keys(randint(2000,2005))
+        driver.find_element_by_xpath("//*[@id='endYear']").send_keys(randint(2006,2010))
+        driver.find_element_by_xpath("//*[@id='educationForm']/div[4]/input").click()
+
+
 
 if __name__ == "__main__":
     unittest.main()
-#РЎРѕР±РёСЂР°РµРј РЅР°С€Рё  С‚РµСЃС‚С‹ РІ РѕРґРёРЅ РѕР±С‰РёР№ С‚РµСЃС‚
+#Собираем наши  тесты в один общий тест
