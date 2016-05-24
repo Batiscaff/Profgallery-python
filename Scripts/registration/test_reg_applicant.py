@@ -121,8 +121,8 @@ class mainPage(unittest.TestCase):
 
         #Ключевые навыки
         driver.find_element_by_xpath("//div[3]/div[6]/a").click()
-        driver.find_element_by_xpath("//*[@id='block']/form/div[2]/div[2]/div").send_keys(u"Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки!")
-        driver.find_element_by_xpath("//*[@id='block']/form/div[3]/input").click()
+        driver.find_element_by_xpath("//div[6]/form/div[2]/div[2]/div").send_keys(u"Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки! Ключевые навыки!")
+        driver.find_element_by_xpath("//div[6]/form/div[3]/input").click()
 
         #Образование
         driver.find_element_by_xpath("//div[3]/div[7]/a").click()
@@ -131,7 +131,7 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='specialty']").send_keys(u"Специальность")
         driver.find_element_by_xpath("//*[@id='beginYear']").send_keys(randint(2000,2005))
         driver.find_element_by_xpath("//*[@id='endYear']").send_keys(randint(2006,2010))
-        driver.find_element_by_xpath("//*[@id='educationForm']/div[4]/input").click()
+        driver.find_element_by_xpath("//div[7]/form/div[4]/input").click()
 
 
 
