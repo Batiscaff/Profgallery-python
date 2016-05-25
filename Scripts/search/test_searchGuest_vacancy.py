@@ -6,6 +6,7 @@ import unittest
 
 class guestSerch(unittest.TestCase):
     def setUp(self):
+        self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
 
