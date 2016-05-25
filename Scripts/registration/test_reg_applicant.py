@@ -10,7 +10,6 @@ import unittest,time
 
 
 class mainPage(unittest.TestCase):
-
     #Настрйоки опций
     def setUp(self):
         #Урл
@@ -68,7 +67,7 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='index-page']/body/span/span/span[1]/input").send_keys(Keys.ENTER)
 
         #driver.find_element_by_xpath("//input[@id='uPhone']").send_keys(randint(89000000000,89999999999))
-        #   driver.find_element_by_xpath("//input[@id='uPhone2']").send_keys(randint(89000000000,89999999999))
+        driver.find_element_by_xpath("//input[@id='uPhone2']").send_keys(str(randint(89000000000,89999999999)))
         driver.find_element_by_xpath("//*[@id='formUser']/div[11]/input").click()
 
 
@@ -129,9 +128,10 @@ class mainPage(unittest.TestCase):
         driver.find_element_by_xpath("//*[@id='institution']").send_keys(u"Образовательное учереждение")
         driver.find_element_by_xpath("//*[@id='faculty']").send_keys(u"Факультет")
         driver.find_element_by_xpath("//*[@id='specialty']").send_keys(u"Специальность")
-        driver.find_element_by_xpath("//*[@id='beginYear']").send_keys(randint(2000,2005))
-        driver.find_element_by_xpath("//*[@id='endYear']").send_keys(randint(2006,2010))
-        driver.find_element_by_xpath("//div[7]/form/div[4]/input").click()
+        driver.find_element_by_xpath("//div[3]/div[2]/div/div/input").send_keys(randint(2000,2005))
+        driver.find_element_by_xpath("//div[3]/div[2]/div/div[2]/input").send_keys(randint(2006,2010))
+        ActionChains(driver).move_to_element(driver.find_element_by_xpath("//input[@name='education_save']")).click()
+
 
 
 
