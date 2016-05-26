@@ -37,9 +37,11 @@ class test_Statistic(unittest.TestCase):
     def test_vocabulary(self):
         url = self.base_url + "vocabulary/options/"
         userInfo = {
-            "optionNames": "string"
-        }
-
+            "optionNames": ["availabilityOf",
+            "jobSeekingStatus",
+            "languageDegreeId",
+            "referrerType"]
+            }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         print rest

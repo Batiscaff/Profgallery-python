@@ -19,7 +19,6 @@ class test_regUser(unittest.TestCase):
             "type": "4"}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        print url
         #Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
@@ -56,6 +55,32 @@ class test_regUser(unittest.TestCase):
     def test_w_applicant_id_experience(self):
         url = self.base_url +"applicant/" + uid + "/experience/?token=" + accessToken
         r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_w_applicant_id_experience_new(self):
+        url = self.base_url +"applicant/" + uid + "/experience/new/?token=" + accessToken
+        userInfo = {
+          "id": 0,
+          "company": {
+            "id": 0,
+          },
+          "companyNote": "string",
+          "started": "string",
+          "ended": "string",
+          "position": "string",
+          "responsibilities": "string",
+          "achievements": "string",
+          "subordinate": "string",
+          "completed": 0,
+          "direct_scount": 0,
+          "func_scount": 0,
+          "project_scount": 0,
+          "industryId": 0,
+          "functions": "string"
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
