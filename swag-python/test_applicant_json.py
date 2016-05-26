@@ -60,15 +60,50 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_w_applicant_id_experience_new(self):
+        #Берем ID компании
+        url = self.base_url + "company/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        global companyID
+        companyID = len(rest["items"]) - 1
+        companyID = randint(0,companyID)
+        companyID = rest["items"][companyID]["id"]
+
+        #Берем ID индустрии
+        url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        global indistryID
+        indistryID = len(rest["items"]) - 1
+        indistryID = randint(0,indistryID)
+        indistryID = rest["items"][indistryID]["element"]["id"]
+
+        #Берем список функций
+        url = self.base_url + "vocabulary/25/tree/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        #Берем ID фукции
+        functionID = len(rest["items"]) - 1
+        functionList = []
+        if (len(rest["items"][functionID]["child"]) == 0 ):
+            functionList = [3800]
+
+        else:
+            for i in range(0,randint(1,5)):
+                functionID = len(rest["items"][1]["element"])
+                functionID = randint(0,functionID) - 1
+                #Из Items мы берем второй элемент (Функции), от неё берет Child, в нем ищем по FunctID, element, id
+                functionID = rest["items"][1]["child"][functionID]["element"]["id"]
+                functionList.append(functionID)
+
+
+
         url = self.base_url +"applicant/" + uid + "/experience/new/?token=" + accessToken
         userInfo = {
           "id": 0,
-          "company": {
-            "id": 0,
-          },
+          "companyId": companyID,
           "companyNote": "string",
-          "started": "string",
-          "ended": "string",
+          "started": "10.02.2010",
           "position": "string",
           "responsibilities": "string",
           "achievements": "string",
@@ -77,13 +112,76 @@ class test_regUser(unittest.TestCase):
           "direct_scount": 0,
           "func_scount": 0,
           "project_scount": 0,
-          "industryId": 0,
-          "functions": "string"
+          "industryId": indistryID,
+          "functions": functionList
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+        #Запоминаем созданный ID опыта работы
+        global expId
+        expId = str(rest["items"]["id"])
+
+
+    """
+    def test_w_applicant_id_experience_zexperienceId_delete(self):
+        url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/delete/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")"""
+
+
+    def test_w_applicant_id_experience_z_expID_propery_add(self):
+        url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/add/?token=" + accessToken
+
+        #Берем список функций
+        url = self.base_url + "vocabulary/25/tree/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+
+        #Берем ID фукции
+        functionID = len(rest["items"]) - 1
+
+        functionList = []
+        if (len(rest["items"][functionID]["child"]) == 0 ):
+            functionList = [3800]
+
+        else:
+            for i in range(0,randint(1,5)):
+                functionID = len(rest["items"][1]["element"])
+                functionID = randint(0,functionID) - 1
+                #Из Items мы берем второй элемент (Функции), от неё берет Child, в нем ищем по FunctID, element, id
+                functionID = rest["items"][1]["child"][functionID]["element"]["id"]
+                functionList.append(functionID)
+
+        #лист для удаления
+        global  functionListRemove
+        functionListRemove = functionList
+        userInfo = {
+          "propertyId": functionList
+        }
+
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_w_applicant_id_experience_z_expID_property_remove(self):
+        url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/remove/?token=" + accessToken
+
+        print functionListRemove
+        userInfo = {
+            "propertyId": functionListRemove
+        }
+
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
 
     def test_w_applicant_id_education(self):
         url = self.base_url +"applicant/" + uid + "/education/?token=" + accessToken
@@ -121,13 +219,13 @@ class test_regUser(unittest.TestCase):
         eduID = str(rest["items"]["id"])
 
     def test_w_applicant_id_education_update(self):
-        url = self.base_url +"applicant/" + uid + "/education/" + eduID +"/update/?token=" + accessToken
+        url = self.base_url + "applicant/" + uid + "/education/" + eduID + "/update/?token=" + accessToken
         userInfo = {
-          "fieldName": "faculty",
-          "fieldValue": "string"
+            "fieldName": "faculty",
+            "fieldValue": "string"
         }
 
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
