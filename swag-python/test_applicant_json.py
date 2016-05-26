@@ -167,7 +167,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-
+        """
     def test_w_applicant_id_experience_z_expID_property_remove(self):
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/remove/?token=" + accessToken
 
@@ -180,7 +180,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         print rest
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
+        self.assertEqual(checkStatus, "success")"""
 
 
     def test_w_applicant_id_education(self):
