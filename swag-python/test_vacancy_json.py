@@ -34,7 +34,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus,"success")
+        self.assertEqual(checkStatus,"success") 
 
     def test_vacancy(self):
         url = self.base_url + "vacancy/?token=" + accessToken
@@ -43,7 +43,8 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         global vacId
-        vacId = randint(0,len(rest["items"]))
+        vacId = len(rest["items"]) - 1
+        vacId = randint(0,vacId)
         vacId = str(rest["items"][vacId]["id"])
 
 
