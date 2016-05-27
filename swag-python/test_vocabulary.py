@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest,json, requests
+import unittest,json, requests,random
 
 class test_regUser(unittest.TestCase):
     def setUp(self):
@@ -10,7 +10,7 @@ class test_regUser(unittest.TestCase):
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
 
-    def test_register_user(self):
+    def test_a_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -60,8 +60,66 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
-        checkStatus = rest["items"]
-        self.assertIsNotNone(checkStatus)
+
+    def test_vocabularies_item_itemid_leveled(self):
+        url = self.base_url + "vocabulary/" + vocId + "/leveled/?level=" + str(randint(0,3)) +"&token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_vocabularies_item_itemid_compatible(self):
+        url = self.base_url + "vocabulary/item/13604/compatible/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_id_language(self):
+        url = self.base_url + "applicant/" + uid +  "/language/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_id_language_add(self):
+        url = self.base_url + "vocabulary/71/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+
+        global langId
+        langId = len(rest["items"]) - 1
+        langId = randint(0, langId)
+        langId = str(rest["items"][langId]["id"])
+
+        url = self.base_url + "applicant/" + uid + "/language/new/?token=" + accessToken
+        userInfo = {
+            "languageId": langId,
+            "languageDegreeId": random.randrange(10,40,10)
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_id_language_update(self):
+        url = self.base_url + "applicant/" + uid + "/language/update/?token=" + accessToken
+        userInfo = {
+            "languageId": langId,
+            "languageDegreeId": random.randrange(10,40,10)
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_id_language_w_delete(self):
+        url = self.base_url + "applicant/" + uid +"/language/" + langId +"/delete/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
 
 if __name__ == "__main__":
     unittest.main()
