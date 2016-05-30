@@ -310,6 +310,31 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
+    def test_w_applicant_id_referer(self):
+        url = self.base_url +"applicant/" + uid + "/referrer/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_w_applicant_id_referer_new(self):
+        url = self.base_url +"applicant/" + uid + "/referrer/new/?token=" + accessToken
+        userInfo = {
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+        global refId
+        refId = str(rest["items"]["id"])
+
+    def test_w_applicant_id_referer_w_delete(self):
+        url = self.base_url +"applicant/" + uid + "/referrer/" + refId + "/delete/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
 
 if __name__ == "__main__":
     unittest.main()
