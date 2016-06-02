@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest,json, requests
+import unittest,json, requests,random
 
 
 class test_regUser(unittest.TestCase):
@@ -11,7 +11,7 @@ class test_regUser(unittest.TestCase):
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
 
-    def test_register_user(self):
+    def test_a_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -124,13 +124,13 @@ class test_regUser(unittest.TestCase):
         expId = str(rest["items"]["id"])
 
 
-    """
-    def test_w_applicant_id_experience_zexperienceId_delete(self):
+
+    def test_wz_applicant_id_experience_zexperienceId_delete(self):
         url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")"""
+        self.assertEqual(checkStatus, "success")
 
 
     def test_w_applicant_id_experience_z_expID_propery_add(self):
@@ -167,7 +167,14 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+
+
         """
+        ######################################
+        Добавление происходит массивом, удаление же происходит по 1 функции.
+        Леонов Василий: Пока на данный тест кладем. Ждем пока реализуют данный метод "в железо", что бы сделать максимально похожим
+
+
     def test_w_applicant_id_experience_z_expID_property_remove(self):
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/remove/?token=" + accessToken
 
@@ -334,6 +341,59 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+
+    def test_w_applicant_language(self):
+        url = self.base_url +"applicant/" + uid + "/language/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+
+    def test_w_applicant_language_new(self):
+        # Берем ID языка
+        url = self.base_url + "vocabulary/71/tree/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        global langId
+        langId = len(rest["items"]) - 1
+        langId = randint(0, langId)
+        langId = rest["items"][langId]["element"]["id"]
+
+        url = self.base_url + "applicant/" + uid + "/language/new/?token=" + accessToken
+
+        userInfo = {
+            "languageId": langId,
+            "title": "string" + str(randint(0, 100)),
+            "languageDegreeId": random.randrange(10, 40, 10)
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_w_applicant_language_update(self):
+        url = self.base_url + "applicant/" + uid + "/language/update/?token=" + accessToken
+        userInfo = {
+            "languageId": langId,
+            "title": "string" + str(randint(0, 100)),
+            "languageDegreeId": random.randrange(10, 40, 10)
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_wz_applicant_language_del(self):
+        url = self.base_url +"applicant/" + uid + "/language/" + str(langId) + "/delete/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
 
 
 if __name__ == "__main__":
