@@ -21,7 +21,6 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         #Проверка на success
         checkStatus = rest["status"]
-        print rest
         self.assertEqual(checkStatus,"success")
 
         # Запоминаем для дальнейшей работы
@@ -65,7 +64,6 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "company/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
-        print rest
         global companyID
         companyID = len(rest["items"]) - 1
         companyID = randint(0,companyID)
