@@ -44,7 +44,6 @@ class test_Statistic(unittest.TestCase):
             }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
