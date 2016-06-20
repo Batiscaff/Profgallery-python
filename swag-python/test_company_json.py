@@ -65,9 +65,16 @@ class test_regUser(unittest.TestCase):
         #Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
-
         global compId
         compId = str(rest["items"]["id"])
+
+        url = self.base_url + "company/" + compId + "/update/?token=profTest"
+        userInfo = {
+            "fieldName": "isVerified",
+            "fieldValue": 1
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+
 
     def test_company_id(self):
         url = self.base_url + "company/" + compId + "/?token=" + str(accessToken)
@@ -89,39 +96,9 @@ class test_regUser(unittest.TestCase):
 
         url = self.base_url + "company/" + compId + "/update/?token=" + str(accessToken)
         userInfo = {
-            "fieldName": "title",
-            "fieldValue": "title :" + str(randint(1000,9999))
-        }
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus,"success")
-
-        url = self.base_url + "company/" + compId + "/update/?token=" + str(accessToken)
-        userInfo = {
                 "fieldName": "url",
                 "fieldValue": "http://" + str(randint(1000,9999)) + ".ru"
             }
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus,"success")
-
-        url = self.base_url + "company/" + compId + "/update/?token=" + str(accessToken)
-        userInfo = {
-            "fieldName": "addr",
-            "fieldValue": "addr : " + str(randint(1000,9999))
-        }
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus,"success")
-
-        url = self.base_url + "company/" + compId + "/update/?token=" + str(accessToken)
-        userInfo = {
-            "fieldName": "inn",
-            "fieldValue": str(randint(1000, 9999))
-        }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
