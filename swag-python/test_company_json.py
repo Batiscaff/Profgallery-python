@@ -39,9 +39,26 @@ class test_regUser(unittest.TestCase):
         uId = rest["items"][0]["id"]
 
     def test_b_company_create(self):
+        # Берем ID гео
+        url = self.base_url + "vocabulary/74/tree/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        countryId = len(rest["items"]) - 1
+        countryId = randint(0, countryId)
+
+        cityId = len(rest["items"][countryId]["child"]) - 1
+        cityId = randint(0, cityId)
+        geoId = rest["items"][countryId]["child"][cityId]["element"]["id"]
+
         url = self.base_url + "company/create/?token=" + accessToken
         userInfo = {
-          "title": "title" + str(randint(1000,9999))
+           "title": "title" + str(randint(1000,9999)),
+           "inn": randint(10000000,99999999),
+           "addr": "string",
+           "geoId": geoId
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
