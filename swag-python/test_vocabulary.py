@@ -41,7 +41,7 @@ class test_regUser(unittest.TestCase):
          vocId = str(rest["items"][vocId]["id"])
 
     def test_vocabularies_id(self):
-        url = self.base_url + "vocabulary/" + vocId +  "/?token=" + accessToken
+        url = self.base_url + "vocabulary/" + vocId +  "/items/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -83,7 +83,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
 
     def test_id_language_add(self):
-        url = self.base_url + "vocabulary/71/?token=" + accessToken
+        url = self.base_url + "vocabulary/71/items/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
 
