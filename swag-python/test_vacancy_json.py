@@ -57,12 +57,11 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "vacancy/find/?token=" + accessToken
         userInfo = {
           "industryId": indId,
-          "isDirect": "false",
-          "properties": [
-          ]
+          "isDirect": "false"
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
+        print rest
         #Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
