@@ -105,7 +105,7 @@ class test_regUser(unittest.TestCase):
 
 
 
-    def test_w_applicant_id_experience_w_delete(self):
+    def test_wwww_applicant_id_experience_w_delete(self):
         url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -142,7 +142,6 @@ class test_regUser(unittest.TestCase):
         }
 
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/add/?token=" + accessToken
-        print userInfo
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         print rest
