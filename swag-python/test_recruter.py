@@ -34,7 +34,3 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "user/recruiter/" + str(uid) + "/?token=" + accessToken
 
 
-
-if __name__ == "__main__":
-    unittest.main()
-
