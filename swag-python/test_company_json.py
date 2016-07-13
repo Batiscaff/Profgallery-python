@@ -40,7 +40,7 @@ class test_regUser(unittest.TestCase):
 
     def test_b_company_create(self):
         # Берем ID гео
-        url = self.base_url + "vocabulary/74/tree/?token=" + accessToken
+        url = self.base_url + "vocabulary/geo/tree/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -91,6 +91,7 @@ class test_regUser(unittest.TestCase):
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
@@ -105,7 +106,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
 
         # Берем ID гео
-        url = self.base_url + "vocabulary/74/tree/?token=" + accessToken
+        url = self.base_url + "vocabulary/geo/tree/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]

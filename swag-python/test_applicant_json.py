@@ -148,7 +148,6 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-
         """
         ######################################
         Добавление происходит массивом, удаление же происходит по 1 функции.

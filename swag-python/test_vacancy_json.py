@@ -61,7 +61,6 @@ class test_regUser(unittest.TestCase):
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        print rest
         #Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
