@@ -114,8 +114,6 @@ class test_regUser(unittest.TestCase):
 
 
     def test_w_applicant_id_experience_z_expID_propery_add(self):
-        url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/add/?token=" + accessToken
-
         #Берем список функций
         url = self.base_url + "vocabulary/25/tree/?token=" + accessToken
         r = requests.get(url,self.head)
@@ -143,8 +141,11 @@ class test_regUser(unittest.TestCase):
           "propertyId": functionList
         }
 
+        url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/add/?token=" + accessToken
+        print userInfo
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 

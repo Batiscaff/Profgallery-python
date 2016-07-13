@@ -61,23 +61,15 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_user_id_update(self):
-        url = self.base_url + "/api/user/" + str(uid) + "/?token=" + str(accessToken)
+        url = self.base_url + "/api/user/" + str(uid) + "/update/?token=" + str(accessToken)
         userInfo = {
-                "fieldName": "string",
+                "fieldName": "surname",
                 "fieldValue": "string"
             }
         r = requests.post(url,userInfo,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-    """
-    def user_limit(self):
-        url = self.base_url + "/api/user/?limit=" + str(randint(10,50)) + "&offset=" + str(randint(5,10)) + "&token=" + accessToken
-        r = requests.get(url,self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
-    """
 
 if __name__ == "__main__":
     unittest.main()
