@@ -10,7 +10,7 @@ class test_regUser(unittest.TestCase):
         self.base_url ="http://api.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    def test_a_register_user(self):
+    def test_00_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -18,47 +18,46 @@ class test_regUser(unittest.TestCase):
             "type": "4"}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        #Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
-
-        # Запоминаем для дальнейшей работы
         global uid
         uid = str(rest["items"]["id"])
+        print uid
         global accessToken
         accessToken = str(rest["items"]["accessToken"])
+        print accessToken
         global email
         email = rest["items"]["email"]
 
-    def test_w_applicant_id_percent(self):
+    def test_01_applicant_id_percent(self):
         url = self.base_url +"applicant/" + uid + "/percent/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id(self):
+    def test_02_applicant_id(self):
         url = self.base_url +"applicant/" + uid + "/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_character(self):
+    def test_03_applicant_id_character(self):
         url = self.base_url +"applicant/" + uid + "/characteristics/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_experience(self):
+    def test_04_applicant_id_experience(self):
         url = self.base_url +"applicant/" + uid + "/experience/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_experience_new(self):
+    def test_04_applicant_id_experience_new(self):
         #Берем ID компании
         url = self.base_url + "company/?token=" + accessToken
         r = requests.get(url,self.head)
@@ -104,7 +103,7 @@ class test_regUser(unittest.TestCase):
 
 
 
-    def test_wwww_applicant_id_experience_w_delete(self):
+    def test_09_applicant_id_experience_delete(self):
         url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -112,15 +111,11 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
 
-    def test_w_applicant_id_experience_z_expID_propery_add(self):
-        #Берем список функций
+    def test_06_applicant_id_experience_expID_propery_add(self):
         url = self.base_url + "vocabulary/25/tree/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
-
-        #Берем ID фукции
         functionID = len(rest["items"]) - 1
-
         functionList = []
         if (len(rest["items"][functionID]["child"]) == 0 ):
             functionList = [3800]
@@ -142,39 +137,37 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/add/?token=" + accessToken
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-        """
-        ######################################
-        Добавление происходит массивом, удаление же происходит по 1 функции.
-        Леонов Василий: Пока на данный тест кладем. Ждем пока реализуют данный метод "в железо", что бы сделать максимально похожим
 
-
-    def test_w_applicant_id_experience_z_expID_property_remove(self):
+    def test_07_applicant_id_experience_expID_property_remove(self):
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/property/remove/?token=" + accessToken
-
-        print functionListRemove
         userInfo = {
             "propertyId": functionListRemove
         }
-
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")"""
+        self.assertEqual(checkStatus, "success")
+
+    def test_08_applicant_id_experience_property(self):
+        url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/property/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
 
-    def test_w_applicant_id_education(self):
+    def test_08_applicant_id_education(self):
         url = self.base_url +"applicant/" + uid + "/education/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_aapplicant_id_education_new(self):
+    def test_09_applicant_id_education_new(self):
         url = self.base_url +"applicant/" + uid + "/education/new/?token=" + accessToken
         userInfo = {
           "id": 0,
@@ -202,7 +195,7 @@ class test_regUser(unittest.TestCase):
         global eduID
         eduID = str(rest["items"]["id"])
 
-    def test_w_applicant_id_education_update(self):
+    def test_10_applicant_id_education_update(self):
         url = self.base_url + "applicant/" + uid + "/education/" + eduID + "/update/?token=" + accessToken
         userInfo = {
             "fieldName": "faculty",
@@ -214,7 +207,7 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_education_z_eduId_delete(self):
+    def test_11_applicant_id_education_eduId_delete(self):
         url = self.base_url +"applicant/" + uid + "/education/" + eduID +"/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -222,7 +215,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
 
-    def test_w_applicant_update(self):
+    def test_12_applicant_update(self):
         url = self.base_url +"applicant/" + uid + "/update/?token=" + accessToken
         userInfo = {
             "fieldName": "skills",
@@ -233,21 +226,40 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_stats(self):
+    def test_12_applicant_update_multi(self):
+        url = self.base_url +"applicant/" + uid + "/update/multiple/?token=" + accessToken
+        userInfo = {
+            "multiple": [
+                {
+                    "fieldName": "skills",
+                    "fieldValue": "string"
+                },
+                {
+                    "fieldName": "description",
+                    "fieldValue": "description"
+                }
+            ]
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_13_applicant_id_stats(self):
         url = self.base_url +"applicant/" + uid + "/stats/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_goals(self):
+    def test_14_applicant_goals(self):
         url = self.base_url +"applicant/" + uid + "/goals/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_goal_add(self):
+    def test_15_applicant_goal_add(self):
         url = self.base_url +"applicant/" + uid + "/goal/add/?token=" + accessToken
         userInfo = {
           "title": "string",
@@ -267,15 +279,17 @@ class test_regUser(unittest.TestCase):
 
         global goalID
         goalID = str(rest['items']["id"])
+        print "Goild"
+        print goalID
 
-    def test_w_applicant_id_goal_goalID(self):
+    def test_16_applicant_id_goal_goalID(self):
         url = self.base_url +"applicant/" + uid + "/goals/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_goal_update(self):
+    def test_17_applicant_id_goal_update(self):
         url = self.base_url +"applicant/" + uid + "/goal/" + goalID +"/update/?token=" + accessToken
 
         userInfo = {
@@ -287,21 +301,51 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_goal_z_delete(self):
+    def test_17_applicant_goal_function_add(self):
+        url = self.base_url +"applicant/" + uid + "/goal/" + goalID + "/functions/add/?token=" + accessToken
+        print url
+        userInfo = {
+            "properties": [
+                1,
+                11
+            ]
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_18_applicant_goal_function_delete(self):
+        url = self.base_url +"applicant/" + uid + "/goal/" + goalID + "/functions/delete/?token=" + accessToken
+        userInfo = {
+            "properties": [
+                1,
+                11
+            ]
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+
+    def test_20_applicant_id_goal_delete(self):
         url = self.base_url +"applicant/" + uid + "/goal/" + goalID +"/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_referer(self):
+
+    def test_19_applicant_id_referer(self):
         url = self.base_url +"applicant/" + uid + "/referrer/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_id_referer_new(self):
+    def test_20_applicant_id_referer_new(self):
         url = self.base_url +"applicant/" + uid + "/referrer/new/?token=" + accessToken
         userInfo = {
             "companyId": companyID,
@@ -317,14 +361,14 @@ class test_regUser(unittest.TestCase):
         global refId
         refId = str(rest["items"]["id"])
 
-    def test_w_applicant_id_referer_w_delete(self):
+    def test_21_applicant_id_referer_delete(self):
         url = self.base_url +"applicant/" + uid + "/referrer/" + refId + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_language(self):
+    def test_22_applicant_language(self):
         url = self.base_url +"applicant/" + uid + "/language/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -332,8 +376,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
 
-    def test_w_applicant_language_new(self):
-        # Берем ID языка
+    def test_23_applicant_language_new(self):
         url = self.base_url + "vocabulary/71/tree/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
@@ -357,7 +400,7 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_w_applicant_language_update(self):
+    def test_24_applicant_language_update(self):
         url = self.base_url + "applicant/" + uid + "/language/update/?token=" + accessToken
         userInfo = {
             "languageId": langId,
@@ -369,9 +412,29 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_wz_applicant_language_del(self):
+    def test_25_applicant_language_del(self):
         url = self.base_url +"applicant/" + uid + "/language/" + str(langId) + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_27_applicant_id_characteristic(self):
+        url = self.base_url + "applicant/" + uid + "/characteristics/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+    def test_28_applicant_characteristic_update(self):
+        url = self.base_url + "applicant/" + uid + "/characteristics/update/?token=" + accessToken
+        userInfo = {
+            "project": 0,
+            "totalExperience": 0,
+            "management": 0,
+            "budget": 0
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
