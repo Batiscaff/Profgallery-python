@@ -164,6 +164,8 @@ class test_folde(unittest.TestCase):
         url = self.base_url + "folder/" + folderIdApplicant + "/list/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
     def test_02_folder_folderId_List_Emplo(self):
         url = self.base_url + "folder/" + folderIdEmplo + "/list/?token=" + accessTokenEmplo
@@ -223,8 +225,12 @@ class test_folde(unittest.TestCase):
         url = self.base_url + "folder/" + folderIdEmplo + "/delete/?token=" + accessTokenEmplo
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
     def test_04_folder_del_applicant(self):
         url = self.base_url + "folder/" + folderIdApplicant + "/delete/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")

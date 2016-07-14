@@ -10,7 +10,6 @@ class test_regUser(unittest.TestCase):
         self.base_url ="http://api.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
-
     def test_a_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
