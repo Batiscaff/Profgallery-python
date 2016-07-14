@@ -28,7 +28,7 @@ class test_regUser(unittest.TestCase):
 
         url = self.base_url + "applicant/"+ uId +"/update/?token=" + accessToken
         userInfo = {
-            "fieldName": "availabilityOfUser",
+            "fieldName": "availabilityOfProfile",
             "fieldValue": 1}
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
@@ -150,6 +150,7 @@ class test_regUser(unittest.TestCase):
         }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         global threadIdEmplo
