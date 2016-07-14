@@ -22,10 +22,8 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
         global uid
         uid = str(rest["items"]["id"])
-        print uid
         global accessToken
         accessToken = str(rest["items"]["accessToken"])
-        print accessToken
         global email
         email = rest["items"]["email"]
 
@@ -303,7 +301,6 @@ class test_regUser(unittest.TestCase):
 
     def test_17_applicant_goal_function_add(self):
         url = self.base_url +"applicant/" + uid + "/goal/" + goalID + "/functions/add/?token=" + accessToken
-        print url
         userInfo = {
             "properties": [
                 1,
@@ -312,7 +309,6 @@ class test_regUser(unittest.TestCase):
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
-        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
