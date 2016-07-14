@@ -101,7 +101,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_10_user_update_multi(self):
-        url = self.base_url +"user/" + uid + "/update/multiple" + accessToken
+        url = self.base_url +"user/" + uid + "/update/multiple/?token=" + accessToken
         userInfo = {
             "multiple": [
                 {
