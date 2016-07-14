@@ -59,9 +59,9 @@ class test_regUser(unittest.TestCase):
         # Проверка на success
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-
         global compId
         compId = str(rest["items"]["id"])
+
         url = self.base_url + "company/" + compId + "/update/?token=profTest"
         userInfo = {
             "fieldName": "isVerified",

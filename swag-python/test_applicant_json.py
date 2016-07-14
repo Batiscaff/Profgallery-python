@@ -130,7 +130,6 @@ class test_regUser(unittest.TestCase):
             for i in range(0,randint(1,5)):
                 functionID = len(rest["items"][1]["element"])
                 functionID = randint(0,functionID) - 1
-                #Из Items мы берем второй элемент (Функции), от неё берет Child, в нем ищем по FunctID, element, id
                 functionID = rest["items"][1]["child"][functionID]["element"]["id"]
                 functionList.append(functionID)
 

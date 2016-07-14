@@ -74,6 +74,10 @@ class test_regUser(unittest.TestCase):
             "fieldValue": 1
         }
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        # Проверка на success
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
 
     def test_company_id(self):
