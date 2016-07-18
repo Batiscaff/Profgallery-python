@@ -22,6 +22,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
         global  uid
         uid = rest["items"]["id"]
+        print uid
         global accessToken
         accessToken =  rest["items"]["accessToken"]
         global email
@@ -39,6 +40,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
         global accessToken
         accessToken = rest["items"]["accessToken"]
+        print accessToken
 
     def test_03_user_login_by_token(self):
         url = self.base_url +"user/login/token/"
