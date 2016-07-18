@@ -259,7 +259,7 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "vacancy/" + vacId + "/language/add/?token=" + accessToken
         userInfo = {
             "languageId": langId,
-            "degreeId": 0
+            "degreeId": 10
         }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
