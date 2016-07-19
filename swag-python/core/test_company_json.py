@@ -27,6 +27,7 @@ class test_regUser(unittest.TestCase):
 
         #Проверка на success
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         #Запоминаем для дальнейшей работы
@@ -38,6 +39,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         #Запоминаем ID компании
@@ -50,6 +52,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         countryId = len(rest["items"]) - 1
@@ -70,6 +73,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         #Проверка на success
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
         global compId
         compId = str(rest["items"]["id"])
@@ -83,6 +87,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         # Проверка на success
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -91,6 +96,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_04_company_id_update(self):
@@ -102,6 +108,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
@@ -112,6 +119,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         # Берем ID гео
@@ -119,6 +127,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         countryId = len(rest["items"]) - 1
@@ -136,6 +145,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_05_company_id_percent(self):
@@ -143,6 +153,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_06_company_id_stat(self):
@@ -150,6 +161,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_07_company_search(self):
@@ -157,6 +169,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_08_company_property_add(self):
@@ -170,6 +183,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_10_company_property_delete(self):
@@ -183,6 +197,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_09_company_property(self):
@@ -190,6 +205,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_11_company_logo(self):
@@ -200,6 +216,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_11_company_logo_del(self):
@@ -207,6 +224,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_12_company_partner_update(self):
@@ -219,6 +237,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
 

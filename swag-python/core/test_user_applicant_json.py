@@ -15,8 +15,9 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
-        
+
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -25,6 +26,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
         global  uid
         uid = rest["items"]["id"]
@@ -43,6 +45,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
         global accessToken
         accessToken = rest["items"]["accessToken"]
@@ -56,6 +59,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_04_user_id(self):
@@ -63,6 +67,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_05_user_id_update(self):
@@ -74,6 +79,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url,userInfo,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_06_user_recovery(self):
@@ -81,6 +87,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     #Данный метод нельзя на данный момент автоматизировать, т.к. письмо приходит на почту.
@@ -99,6 +106,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url, userInfo, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_09_user_avatar_delete(self):
@@ -106,6 +114,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_10_user_update_multi(self):
@@ -125,6 +134,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_11_user(self):
@@ -132,6 +142,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 

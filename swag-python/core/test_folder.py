@@ -24,6 +24,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
         global accessToken
         accessToken =  rest["items"]["accessToken"]
@@ -39,6 +40,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_00_register_user_emplo(self):
@@ -50,6 +52,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global accessTokenEmplo
         accessTokenEmplo = rest["items"]["accessToken"]
@@ -63,6 +66,7 @@ class test_folde(unittest.TestCase):
             r = requests.get(url, self.head)
             rest = json.loads(r.text)
             checkStatus = rest["status"]
+            print rest
             self.assertEqual(checkStatus, "success")
             countryId = len(rest["items"]) - 1
             countryId = randint(0, countryId)
@@ -81,6 +85,7 @@ class test_folde(unittest.TestCase):
             rest = json.loads(r.text)
             # Проверка на success
             checkStatus = rest["status"]
+            print rest
             self.assertEqual(checkStatus, "success")
             global compId
             compId = str(rest["items"]["id"])
@@ -93,6 +98,7 @@ class test_folde(unittest.TestCase):
             rest = json.loads(r.text)
             # Проверка на success
             checkStatus = rest["status"]
+            print rest
             self.assertEqual(checkStatus, "success")
 
     def test_02_vacancy_create(self):
@@ -139,6 +145,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         global vacIdCreate
@@ -151,6 +158,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global folderIdApplicant
         folderIdApplicant = rest["items"]["id"]
@@ -162,6 +170,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global folderIdEmplo
         folderIdEmplo = str(rest["items"]["id"])
@@ -171,6 +180,7 @@ class test_folde(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_02_folder_folderId_List_Emplo(self):
@@ -189,6 +199,7 @@ class test_folde(unittest.TestCase):
         rest = json.loads(r.text)
         print rest
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global threadIdEmplo
         threadIdEmplo = rest["items"]["threadId"]
@@ -202,6 +213,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -215,6 +227,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global threadIdApplicant
         threadIdApplicant = rest["items"]["threadId"]
@@ -226,6 +239,7 @@ class test_folde(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_04_folder_del_emplo(self):
@@ -233,6 +247,7 @@ class test_folde(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_04_folder_del_applicant(self):
@@ -240,4 +255,5 @@ class test_folde(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")

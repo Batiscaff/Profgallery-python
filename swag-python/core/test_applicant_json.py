@@ -15,6 +15,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "user/register/"
@@ -25,6 +26,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
         global uid
         uid = str(rest["items"]["id"])
@@ -38,6 +40,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_02_applicant_id(self):
@@ -45,6 +48,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_03_applicant_id_character(self):
@@ -52,6 +56,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_04_applicant_id_experience(self):
@@ -59,6 +64,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_04_applicant_id_experience_new(self):
@@ -100,6 +106,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         #Запоминаем созданный ID опыта работы
         global expId
@@ -121,6 +128,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         print rest
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
 
@@ -130,6 +138,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         print rest
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -161,6 +170,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -172,6 +182,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_08_applicant_id_experience_property(self):
@@ -180,6 +191,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
 
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -188,6 +200,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_09_applicant_id_education_new(self):
@@ -213,6 +226,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         global eduID
@@ -228,6 +242,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_11_applicant_id_education_eduId_delete(self):
@@ -235,6 +250,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -247,6 +263,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_12_applicant_update_multi(self):
@@ -266,6 +283,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_13_applicant_id_stats(self):
@@ -273,6 +291,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_14_applicant_goals(self):
@@ -280,6 +299,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_15_applicant_goal_add(self):
@@ -298,6 +318,7 @@ class test_regUser(unittest.TestCase):
 
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         global goalID
@@ -308,6 +329,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_17_applicant_id_goal_update(self):
@@ -320,6 +342,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_17_applicant_goal_function_add(self):
@@ -333,6 +356,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_18_applicant_goal_function_delete(self):
@@ -346,6 +370,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -362,6 +387,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_20_applicant_id_referer_new(self):
@@ -376,6 +402,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         global refId
         refId = str(rest["items"]["id"])
@@ -385,6 +412,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_22_applicant_language(self):
@@ -392,6 +420,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -400,6 +429,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
         global langId
@@ -417,6 +447,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_24_applicant_language_update(self):
@@ -429,6 +460,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_25_applicant_language_del(self):
@@ -436,6 +468,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_27_applicant_id_characteristic(self):
@@ -443,6 +476,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_28_applicant_characteristic_update(self):
@@ -456,6 +490,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 

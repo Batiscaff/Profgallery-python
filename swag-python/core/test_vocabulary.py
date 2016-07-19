@@ -15,6 +15,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "user/register/"
@@ -26,6 +27,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         #Проверка на success
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         # Запоминаем для дальнейшей работы
@@ -39,7 +41,9 @@ class test_regUser(unittest.TestCase):
          url = self.base_url + "vocabularies/?token=" + accessToken
          r = requests.get(url, self.head)
          rest = json.loads(r.text)
+         print rest
          checkStatus = rest["status"]
+         print rest
          self.assertEqual(checkStatus, "success")
          global vocId
          vocId = len(rest["items"]) - 1
@@ -51,6 +55,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_vocabularies_id_tree(self):
@@ -65,6 +70,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_vocabularies_item_itemid_leveled(self):
@@ -79,6 +85,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
 

@@ -16,6 +16,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "user/register/"
@@ -27,6 +28,7 @@ class test_regUser(unittest.TestCase):
         rest = json.loads(r.text)
         #Проверка на success
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
         #Запоминаем для дальнейшей работы
@@ -40,6 +42,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
         countryId = len(rest["items"]) - 1
         countryId = randint(0, countryId)
@@ -57,6 +60,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
 
@@ -65,6 +69,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_02_recruter_id(self):
@@ -72,6 +77,7 @@ class test_regUser(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus, "success")
 
     def test_03_recruter_id_update(self):
@@ -96,6 +102,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
     def test_05_recruter_role_del(self):
@@ -111,6 +118,7 @@ class test_regUser(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
+        print rest
         self.assertEqual(checkStatus,"success")
 
 
