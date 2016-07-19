@@ -128,6 +128,7 @@ class test_regUser(unittest.TestCase):
         url = self.base_url +"applicant/" + uid + "/experience/" + expId + "/delete/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
