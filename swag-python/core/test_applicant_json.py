@@ -107,7 +107,6 @@ class test_regUser(unittest.TestCase):
 
     def test_05_applicant_id_experience_update(self):
         url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/update/?token=" + accessToken
-        print url
         userInfo = {
             "companyId": companyID,
             "companyNote": "string",
@@ -120,6 +119,7 @@ class test_regUser(unittest.TestCase):
         }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
