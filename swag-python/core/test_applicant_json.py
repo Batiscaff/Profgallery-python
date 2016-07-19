@@ -7,10 +7,16 @@ import unittest,json, requests,random
 
 class test_regUser(unittest.TestCase):
     def setUp(self):
-        self.base_url ="http://api.corp.profgallery.ru/api/"
+        self.base_url ="http://api-test.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
     def test_00_register_user(self):
+        url = self.base_url + "tests-init/"
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -99,6 +105,23 @@ class test_regUser(unittest.TestCase):
         global expId
         expId = str(rest["items"]["id"])
 
+    def test_05_applicant_id_experience_update(self):
+        url = self.base_url + "applicant/" + uid + "/experience/" + expId + "/update/?token=" + accessToken
+        print url
+        userInfo = {
+            "companyId": companyID,
+            "companyNote": "string",
+            "started": "2010-02-20",
+            "ended": "2015-02-20",
+            "position": "string",
+            "responsibilities": "string",
+            "achievements": "string",
+            "subordinate": "string",
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
 
 
     def test_09_applicant_id_experience_delete(self):
@@ -277,8 +300,6 @@ class test_regUser(unittest.TestCase):
 
         global goalID
         goalID = str(rest['items']["id"])
-        print "Goild"
-        print goalID
 
     def test_16_applicant_id_goal_goalID(self):
         url = self.base_url +"applicant/" + uid + "/goals/?token=" + accessToken
