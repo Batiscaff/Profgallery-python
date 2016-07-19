@@ -137,6 +137,7 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "vocabulary/25/tree/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
+        print rest
         functionID = len(rest["items"]) - 1
         functionList = []
         if (len(rest["items"][functionID]["child"]) == 0 ):
