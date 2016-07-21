@@ -233,6 +233,14 @@ class test_regUser(unittest.TestCase):
             vacPropety = rest["items"][vacPropety]["element"]["id"]
             vacPropetyList.append(vacPropety)
 
+        for i in range(len(vacPropetyList)):
+            c = vacPropetyList[i]
+            for j in range(len(vacPropetyList)):
+                if vacPropetyList[j] == c and i < j:
+                    vacPropetyList[j] = []
+                else:
+                    pass
+
         userInfo = {
             "properties": vacPropetyList
         }
