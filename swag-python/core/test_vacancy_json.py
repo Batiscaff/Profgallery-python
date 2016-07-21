@@ -227,11 +227,19 @@ class test_regUser(unittest.TestCase):
         global vacPropetyList
         vacPropetyList = []
 
-        for i in range(0, randint(1, 10)):
+        for i in range(1, randint(1, 9)):
             vacPropety = len(rest["items"]) - 1
             vacPropety = randint(0,vacPropety)
             vacPropety = rest["items"][vacPropety]["element"]["id"]
             vacPropetyList.append(vacPropety)
+            print vacPropetyList
+            for i in range(len(vacPropetyList) - 1):
+                c = vacPropetyList[i]
+                for j in range(len(vacPropetyList)):
+                    if vacPropetyList[j] == c and i < j:
+                        del vacPropetyList[-1]
+                    else:
+                        pass
 
         userInfo = {
             "properties": vacPropetyList
