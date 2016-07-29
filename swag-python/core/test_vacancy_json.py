@@ -127,7 +127,7 @@ class test_regUser(unittest.TestCase):
             pass
         #Если не пустой - сравниваем ID отрасли любой вакансии и той отрасли, что мы забивал
         else:
-            self.assertEqual(indId,rest["items"][randint(0,len(rest))]["industry"]["id"])
+            self.assertEqual(indId,rest["items"][randint(0,len(rest))]["industryId"])
 
     def test_04_vacancy_create(self):
         url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
