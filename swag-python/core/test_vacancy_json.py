@@ -235,6 +235,7 @@ class test_regUser(unittest.TestCase):
             print vacPropetyList
             if vacPropety not in vacPropetyList:
                 vacPropetyList.append(vacPropety)
+                print vacPropetyList
 
         userInfo = {
             "properties": vacPropetyList
