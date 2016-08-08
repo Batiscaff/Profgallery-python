@@ -240,7 +240,8 @@ class test_regUser(unittest.TestCase):
         userInfo = {
             "properties": vacPropetyList
         }
-        url = self.base_url +"vacancy/" + vacId + "/property/add/?token=" + accessToken
+        print userInfo
+        url = self.base_url +"vacancy/" + vacIdCreate + "/property/add/?token=" + accessToken
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -248,7 +249,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_07_poperties(self):
-        url = self.base_url +"vacancy/" + vacId + "/property/?token=" + accessToken
+        url = self.base_url +"vacancy/" + vacIdCreate + "/property/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -256,7 +257,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_08_properties_del(self):
-        url = self.base_url + "vacancy/" + vacId + "/property/delete/?token=" + accessToken
+        url = self.base_url + "vacancy/" + vacIdCreate + "/property/delete/?token=" + accessToken
         userInfo = {
             "properties": vacPropetyList
         }
@@ -279,7 +280,7 @@ class test_regUser(unittest.TestCase):
         langId = randint(0,langId)
         langId = rest["items"][langId]["element"]["id"]
 
-        url = self.base_url + "vacancy/" + vacId + "/language/add/?token=" + accessToken
+        url = self.base_url + "vacancy/" + vacIdCreate + "/language/add/?token=" + accessToken
         userInfo = {
             "languageId": langId,
             "degreeId": 10
@@ -291,14 +292,14 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_10_vacancy_lang(self):
-        url = self.base_url +"vacancy/" + vacId + "/language/?token=" + accessToken
+        url = self.base_url +"vacancy/" + vacIdCreate + "/language/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
     def test_11_vacancy_lang_del(self):
-        url = self.base_url + "vacancy/" + vacId + "/language/delete/?token=" + accessToken
+        url = self.base_url + "vacancy/" + vacIdCreate + "/language/delete/?token=" + accessToken
         userInfo = {
             "languageId": langId,
             "degreeId": 0
