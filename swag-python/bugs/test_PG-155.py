@@ -79,10 +79,12 @@ class hideOptions(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+
         checkStatus = rest["items"]["surname"]
-        self.assertEqual(checkStatus, False)
+        self.assertEqual(checkStatus, "HideForAgency")
+
         checkStatus = rest["items"]["middle_name"]
-        self.assertEqual(checkStatus, "HideForEmplo")
+        self.assertEqual(checkStatus, False)
 
     def test_03_view_as_emplo(self):
         url = self.base_url +"user/" + uid + "/?token=" + accessToken + "&userRole=direct"
@@ -91,9 +93,11 @@ class hideOptions(unittest.TestCase):
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
+
         checkStatus = rest["items"]["middle_name"]
-        self.assertEqual(checkStatus, False)
+        self.assertEqual(checkStatus, "HideForEmplo")
+
         checkStatus = rest["items"]["surname"]
-        self.assertEqual(checkStatus, "HideForAgency")
+        self.assertEqual(checkStatus, False)
 
 
