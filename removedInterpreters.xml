@@ -3,6 +3,12 @@
     <option name="REMOVED_SDKS">
       <set>
         <option value="C:\Users\ek\AppData\Local\Programs\Python\Python35-32\python.exe" />
+        <option value="C:\Users\ek\Chrome\Scripts\python.exe" />
+        <option value="C:\Users\ek\env\Scripts\python.exe" />
+        <option value="C:\Users\ek\hamspo\Scripts\python.exe" />
+        <option value="C:\Users\ek\hsampo\Scripts\python.exe" />
+        <option value="C:\Users\ek\pyqt\Scripts\python.exe" />
+        <option value="C:\Users\ek\tkinter\Scripts\python.exe" />
       </set>
     </option>
   </component>
