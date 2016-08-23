@@ -34,8 +34,10 @@ class test_regUser(unittest.TestCase):
         #Запоминаем для дальнейшей работы
         global uId
         uId = rest["items"]["id"]
+        print uId
         global accessTokenRecrut
         accessTokenRecrut =  rest["items"]["accessToken"]
+        print accessTokenRecrut
 
     def test_01_company_create(self):
         url = self.base_url + "vocabulary/geo/tree/?token=" + accessTokenRecrut
@@ -121,4 +123,28 @@ class test_regUser(unittest.TestCase):
         print rest
         self.assertEqual(checkStatus,"success")
 
+    def test_06_recruter_sub_add(self):
+        url = self.base_url + "recruiter/sub/add/?token=" + accessTokenRecrut
+        userInfo = {
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
+            "password": "string",
+            "roles": [
+                1,
+                3,
+                5
+            ]
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus,"success")
+
+    def test_07_recruter_colleagues(self):
+        url = self.base_url + "recruiter/" + uId + "/colleagues/?token=" + accessTokenRecrut
+        print url
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
 

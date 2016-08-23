@@ -72,6 +72,7 @@ class test_regUser(unittest.TestCase):
         global compId
         compId = str(rest["items"]["id"])
 
+
         url = self.base_url + "company/" + compId + "/update/?token=profTest"
         userInfo = {
             "fieldName": "isVerified",

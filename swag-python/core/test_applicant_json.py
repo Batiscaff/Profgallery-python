@@ -35,8 +35,19 @@ class test_regUser(unittest.TestCase):
         global email
         email = rest["items"]["email"]
 
+        url = self.base_url + "user/" + uid + "/update/?token=profTest"
+        userInfo = {
+            "fieldName": "isValidated",
+            "fieldValue": 1
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        print rest
+        self.assertEqual(checkStatus, "success")
+
     def test_01_applicant_id_percent(self):
         url = self.base_url +"applicant/" + uid + "/percent/?token=" + accessToken
+        print url
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
