@@ -40,6 +40,17 @@ class userComplitedPositive(unittest.TestCase):
         userFileds.remove("user")
 
     def applicant_exp(self, userFileds):
+        url = self.base_url + "applicant/" + uid + "/percent/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        # Прверяем что первоначально опыт работы не заполнен
+        checkStatus = rest["items"]["required"]["experience"]["status"]
+        self.assertEqual(checkStatus, False)
+        print "Опыт работы не заполнен. Ок!"
+
         # Берем ID компании
         url = self.base_url + "company/?token=" + accessToken
         r = requests.get(url, self.head)
@@ -86,6 +97,17 @@ class userComplitedPositive(unittest.TestCase):
         userFileds.remove("exp")
 
     def applicant_characteristic(self, userFileds):
+        url = self.base_url + "applicant/" + uid + "/percent/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        # Прверяем character не заполнен
+        checkStatus = rest["items"]["required"]["characteristics"]["status"]
+        self.assertEqual(checkStatus, False)
+        print "Character не заполнен. Ок!"
+
         url = self.base_url + "applicant/" + uid + "/characteristics/update/?token=" + accessToken
         userInfo = {
             "project": 5,
@@ -102,6 +124,17 @@ class userComplitedPositive(unittest.TestCase):
         userFileds.remove("character")
 
     def user_validate(self, userFileds):
+        url = self.base_url + "applicant/" + uid + "/percent/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        # Прверяем is_validated False
+        checkStatus = rest["items"]["required"]["is_validated"]["status"]
+        self.assertEqual(checkStatus, False)
+        print "is_validated False. Ок!"
+
         url = self.base_url + "user/" + uid + "/update/?token=profTest"
         userInfo = {
             "fieldName": "isValidated",
@@ -116,6 +149,17 @@ class userComplitedPositive(unittest.TestCase):
         userFileds.remove("email")
 
     def applicant_edu(self, userFileds):
+        url = self.base_url + "applicant/" + uid + "/percent/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
+        # Прверяем edu не заполнен
+        checkStatus = rest["items"]["required"]["education"]["status"]
+        self.assertEqual(checkStatus, False)
+        print "Edu не заполнен. Ок!"
+
         url = self.base_url + "applicant/" + uid + "/education/new/?token=" + accessToken
         userInfo = {
             "id": 0,
