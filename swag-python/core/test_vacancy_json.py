@@ -104,31 +104,31 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
-    def test_03_vacancy_find(self):
-        #Берем случайный ID отрасли
-        url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
-        r = requests.get(url,self.head)
-        rest = json.loads(r.text)
-        indId =  rest["items"][randint(0,len(rest))]["element"]["id"]
-
-        url = self.base_url + "vacancy/find/?token=" + accessToken
-        userInfo = {
-          "industryId": indId,
-          "isDirect": "false"
-        }
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
-        rest = json.loads(r.text)
-        #Проверка на success
-        checkStatus = rest["status"]
-        print rest
-        self.assertEqual(checkStatus,"success")
-
-        #Проверка на пустой массив.
-        if len(rest["items"]) == 0:
-            pass
-        #Если не пустой - сравниваем ID отрасли любой вакансии и той отрасли, что мы забивал
-        else:
-            self.assertEqual(indId,rest["items"][randint(0,len(rest))]["industryId"])
+    # def test_03_vacancy_find(self):
+    #     #Берем случайный ID отрасли
+    #     url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
+    #     r = requests.get(url,self.head)
+    #     rest = json.loads(r.text)
+    #     indId =  rest["items"][randint(0,len(rest))]["element"]["id"]
+    #
+    #     url = self.base_url + "vacancy/find/?token=" + accessToken
+    #     userInfo = {
+    #       "industryId": indId,
+    #       "isDirect": "false"
+    #     }
+    #     r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+    #     rest = json.loads(r.text)
+    #     #Проверка на success
+    #     checkStatus = rest["status"]
+    #     print rest
+    #     self.assertEqual(checkStatus,"success")
+    #
+    #     #Проверка на пустой массив.
+    #     if len(rest["items"]) == 0:
+    #         pass
+    #     #Если не пустой - сравниваем ID отрасли любой вакансии и той отрасли, что мы забивал
+    #     else:
+    #         self.assertEqual(indId,rest["items"][randint(0,len(rest))]["industryId"])
 
     def test_04_vacancy_create(self):
         url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
