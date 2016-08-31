@@ -62,19 +62,38 @@ class test_regUser(unittest.TestCase):
         cityId = randint(0, cityId)
         geoId = rest["items"][countryId]["child"][cityId]["element"]["id"]
 
+        url = self.base_url + "vocabulary/gejob_business_type/tree/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        obj = randint(0, len(rest["items"]) - 1)
+        # obj =  3
+
+
+        if len(rest["items"][obj]["child"]) > 0 and randint(1, 1) == 1:
+
+            structureType = rest["items"][obj]["child"][randint(0, len(rest["items"][obj]["child"]))]["element"][
+                "id"]
+
+        else:
+            structureType = rest["items"][obj]["element"]["id"]
+
         url = self.base_url + "company/create/?token=" + accessToken
         userInfo = {
-           "title": "title" + str(randint(1000,9999)),
-           "inn": randint(10000000,99999999),
-           "addr": "string",
-           "geoId": geoId
+            "title": "title" + str(randint(1000, 9999)),
+            "addr": "string",
+            "addrMain": "string main",
+            "url": "string",
+            "structureType": structureType,
+            "description": "string",
+            "brand": "string",
+            "inn": randint(10000000, 99999999),
+            "geoId": geoId
         }
-        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
-        #Проверка на success
+        # Проверка на success
         checkStatus = rest["status"]
-        print rest
-        self.assertEqual(checkStatus,"success")
+        self.assertEqual(checkStatus, "success")
         global compId
         compId = str(rest["items"]["id"])
 

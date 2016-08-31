@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest,json, requests,random
+import unittest,json, requests
 
 class availabilityOf(unittest.TestCase):
     def setUp(self):

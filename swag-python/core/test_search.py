@@ -34,7 +34,23 @@ class test_regUser(unittest.TestCase):
         accessToken =  rest["items"]["accessToken"]
         print accessToken
 
-    def test_01_search_applicant(self):
+    def test_01_search_build(self):
+        url = self.base_url + "search/build/?token=profTest"
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_01_search_reindex(self):
+        url = self.base_url + "search/reindex/?token=profTest"
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus,"success")
+
+    def test_02_search_applicant(self):
         url = self.base_url + "search/applicant/?token=" + accessToken
         userInfo = {
             "text": "string"
@@ -86,6 +102,48 @@ class test_regUser(unittest.TestCase):
 
     def test_05_search_filter_del(self):
         url = self.base_url + "search/filter/" + filterId + "/delete/?token=" + accessToken
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+    def test_06_search_vacancy(self):
+        url = self.base_url + "user/register/"
+        userInfo = {
+            "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
+            "password": "string",
+            "type": "4"
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+
+        #Проверка на success
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus,"success")
+        accessTokenApplicant =  rest["items"]["accessToken"]
+
+        url = self.base_url + "search/vacancy/?token=" + accessTokenApplicant
+        userInfo = {
+            "text": "string"
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus,"success")
+
+    def test_06_search_build(self):
+        url = self.base_url + "search/build/?token=profTest"
+        r = requests.get(url,self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+    def test_07_search_reindex(self):
+        url = self.base_url + "search/reindex q/?token=profTest"
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]

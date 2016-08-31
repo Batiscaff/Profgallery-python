@@ -54,7 +54,6 @@ class findGeneral(unittest.TestCase):
             # Выбираем отрасль
             func = randint(0, random.randint(0, len(rest["items"]) - 1))
             global userFunction
-
             userFunction = rest["items"][func]["child"][randint(0, len(rest["items"][func]["child"]) - 1)]["element"][
                 "id"]
             print "Найденная функция пользователя: " + str(userFunction)
