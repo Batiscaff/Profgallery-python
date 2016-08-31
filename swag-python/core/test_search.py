@@ -143,7 +143,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_07_search_reindex(self):
-        url = self.base_url + "search/reindex q/?token=profTest"
+        url = self.base_url + "search/reindex/?token=profTest"
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
