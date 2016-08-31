@@ -71,7 +71,7 @@ class test_regUser(unittest.TestCase):
 
         if len(rest["items"][obj]["child"]) > 0 and randint(1, 1) == 1:
 
-            structureType = rest["items"][obj]["child"][randint(0, len(rest["items"][obj]["child"]))]["element"][
+            structureType = rest["items"][obj]["child"][randint(0, len(rest["items"][obj]["child"])-1)]["element"][
                 "id"]
 
         else:
