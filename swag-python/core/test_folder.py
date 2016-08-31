@@ -257,3 +257,71 @@ class test_folde(unittest.TestCase):
         checkStatus = rest["status"]
         print rest
         self.assertEqual(checkStatus, "success")
+
+    def test_05_folders_applicant(self):
+        url = self.base_url + "folders/?token=" + accessToken
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+    def test_05_folders_emplo(self):
+        url = self.base_url + "folders/?token=" + accessTokenEmplo
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+    def test_03_folder_threadid_remove_emplo(self):
+        url = self.base_url + "message/recruiter/new/?token=" + accessTokenEmplo
+        userInfo = {
+            "itemId": applicantId,
+            "itemType": 4,
+            "body": "string"
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        print rest
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+        global threadIdEmplo
+        threadIdEmplo = rest["items"]["threadId"]
+        global messageIdFromEmplo
+        messageIdFromEmplo = rest["items"]["id"]
+
+        url = self.base_url + "message/thread/" +  threadIdEmplo + "/move/?token=" + accessTokenEmplo
+        userInfo = {
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+
+    def test_03_folder_threadid_remove_applicant(self):
+        url = self.base_url + "message/applicant/new/?token=" + accessToken
+        userInfo = {
+            "itemId": vacIdCreate,
+            "itemType": 2,
+            "body": "string"
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+        global threadIdApplicant
+        threadIdApplicant = rest["items"]["threadId"]
+
+        url = self.base_url + "message/thread/" + threadIdApplicant + "/move/?token=" + accessToken
+        userInfo = {
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
