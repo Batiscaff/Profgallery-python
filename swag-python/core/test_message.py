@@ -28,6 +28,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus,"success")
         global accessToken
         accessToken =  rest["items"]["accessToken"]
+        print accessToken
         global applicantId
         applicantId = str(rest["items"]["id"])
         uId = rest["items"]["id"]
@@ -285,3 +286,22 @@ class test_regUser(unittest.TestCase):
         checkStatus = rest["status"]
         print rest
         self.assertEqual(checkStatus, "success")
+
+    def test_10_threadId_info_applicant(self):
+      url = self.base_url + "message/thread/" + threadIdApplicant + "/info/?token=" + accessToken
+      r = requests.get(url, self.head)
+      rest = json.loads(r.text)
+      checkStatus = rest["status"]
+      print rest
+      self.assertEqual(checkStatus, "success")
+
+
+    def test_11_threadId_info_emplo(self):
+      url = self.base_url + "message/thread/" + threadIdEmplo + "/info/?token=" + accessToken
+      print url
+      r = requests.get(url, self.head)
+      rest = json.loads(r.text)
+      checkStatus = rest["status"]
+      print rest
+      self.assertEqual(checkStatus, "success")
+
