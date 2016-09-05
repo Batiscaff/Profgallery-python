@@ -84,7 +84,7 @@ class findGeneral(unittest.TestCase):
             # Проверяем, найдены ли пользователи по нашему запросу
             if len(rest["items"]) > 0:
                 status = "find"
-                for i in range(0, len(rest["items"])):
+                for i in xrange(len(rest["items"])):
                     userList.append(rest["items"][varA]["user"]["id"])
                     varA = + 1
             requestError = requestError + 1
@@ -93,7 +93,7 @@ class findGeneral(unittest.TestCase):
 
         # Для каждого пользователя из списка userList
         varUser = 0
-        for i in range(0, len(userList)):
+        for i in xrange(len(userList)):
             status2 = False
             while status2 == False:
                 # Получаем список работы
@@ -106,7 +106,7 @@ class findGeneral(unittest.TestCase):
                 # Cобираем ID работ пользователя
                 varA = 0
                 userExpList = []
-                for j in range(0, len(rest["items"]), 1):
+                for j in xrange(len(rest["items"])):
                     userExpList.append(rest["items"][varA]["id"])
                     varA = varA + 1
 
@@ -212,14 +212,14 @@ class findGeneral(unittest.TestCase):
                 # Cобираем id опыта работы пользователя
                 varA = 0
                 userExpList = []
-                for j in range(0, len(rest["items"]), 1):
+                for j in xrange(len(rest["items"])):
                     userExpList.append(rest["items"][varA]["id"])
                     varA = varA + 1
 
                 varExp = 0
                 userProperites = []
                 # Собираем branch в массив
-                for x in range(0, len(userExpList)):
+                for x in xrange(len(userExpList)):
                     # Собираем отрасли
                     url = self.base_url + "applicant/" + userList[varUser] + "/experience/?token=profTest"
                     r = requests.get(url, self.head)
@@ -237,7 +237,7 @@ class findGeneral(unittest.TestCase):
                     checkStatus = rest["status"]
                     self.assertEqual(checkStatus, "success")
                     varC = 0
-                    for key in range(0, len(rest["items"]["company"])):
+                    for key in xrange(len(rest["items"]["company"])):
                         userProperites.append(int(rest["items"]["company"][varC]))
                         varC += 1
 

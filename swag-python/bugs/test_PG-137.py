@@ -4,7 +4,7 @@ from random import randint
 import unittest, json, requests, time
 
 companyFileds = ["title", "addrMain", "addr", "inn", "geoId"]
-requiredFields = ["structureType", "url", "isVerified"]
+requiredFields = ["structureType", "url"]
 
 
 class userComplitedPositive(unittest.TestCase):
@@ -74,21 +74,21 @@ class userComplitedPositive(unittest.TestCase):
 
     def test_02_company_create(self):
         company = {}
-        for i in range(0, len(companyFileds)):
+        for i in xrange(len(companyFileds)):
             dice = companyFileds[randint(0, len(companyFileds) - 1)]
             if dice == "title":
                 company.update({"title": "title" + str(randint(1000, 9999))})
                 companyFileds.remove("title")
-            if dice == "addrMain":
+            elif dice == "addrMain":
                 company.update({"addrMain": "string"})
                 companyFileds.remove("addrMain")
-            if dice == "addr":
+            elif dice == "addr":
                 company.update({"addr": "string"})
                 companyFileds.remove("addr")
-            if dice == "inn":
+            elif dice == "inn":
                 companyFileds.remove("inn")
                 company.update({"inn": randint(10000000, 99999999)})
-            if dice == "geoId":
+            elif dice == "geoId":
                 companyFileds.remove("geoId")
                 # Берем ID гео
                 url = self.base_url + "vocabulary/geo/tree/?token=" + accessToken
@@ -96,10 +96,8 @@ class userComplitedPositive(unittest.TestCase):
                 rest = json.loads(r.text)
                 checkStatus = rest["status"]
                 self.assertEqual(checkStatus, "success")
-
                 countryId = len(rest["items"]) - 1
                 countryId = randint(0, countryId)
-
                 cityId = len(rest["items"][countryId]["child"]) - 1
                 cityId = randint(0, cityId)
                 company.update({"geoId": rest["items"][countryId]["child"][cityId]["element"]["id"]})
@@ -132,8 +130,19 @@ class userComplitedPositive(unittest.TestCase):
         self.assertEqual(checkStatus, False)
 
     def test_03_company_update_postitve(self):
+        # модерируем компанию, что бы мы могли творить всякие непотребства
+        url = self.base_url + "company/" + compId + "/update/?token=profTest"
+        userInfo = {
+            "fieldName": "isVerified",
+            "fieldValue": 1
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        # Проверка на success
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
         company = {}
-        for i in range(0, len(requiredFields)):
+        for i in xrange(len(requiredFields)):
             dice = requiredFields[randint(0, len(requiredFields) - 1)]
             print requiredFields
             print dice
@@ -164,20 +173,7 @@ class userComplitedPositive(unittest.TestCase):
                 # Проверка на success
                 checkStatus = rest["status"]
                 self.assertEqual(checkStatus, "success")
-
-            if dice == "isVerified":
-                requiredFields.remove("isVerified")
-                url = self.base_url + "company/" + compId + "/update/?token=profTest"
-                userInfo = {
-                    "fieldName": "isVerified",
-                    "fieldValue": 1
-                }
-                r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
-                rest = json.loads(r.text)
-                # Проверка на success
-                checkStatus = rest["status"]
-                self.assertEqual(checkStatus, "success")
-            if dice == "url":
+            elif dice == "url":
                 requiredFields.remove("url")
                 if randint(0, 0) == 1:
                     url = self.base_url + "company/" + compId + "/update/?token=" + accessToken

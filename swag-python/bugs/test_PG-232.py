@@ -217,19 +217,19 @@ class userComplitedPositive(unittest.TestCase):
                 print "user fill"
                 self.user_update(userFileds)
 
-            if dice == "edu":
+            elif dice == "edu":
                 print "edu"
                 self.applicant_edu(userFileds)
 
-            if dice == "exp":
+            elif dice == "exp":
                 print "exp"
                 self.applicant_exp(userFileds)
 
-            if dice == "character":
+            elif dice == "character":
                 print "char"
                 self.applicant_characteristic(userFileds)
 
-            if dice == "email":
+            elif dice == "email":
                 print "email"
                 self.user_validate(userFileds)
 

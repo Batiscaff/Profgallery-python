@@ -13,8 +13,8 @@ class availabilityOf(unittest.TestCase):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
-        checkStatus = rest["status"]
         print rest
+        checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "user/register/"
@@ -33,8 +33,8 @@ class availabilityOf(unittest.TestCase):
         accessToken = str(rest["items"]["accessToken"])
 
     def test_01_applicant_id_experience_new(self):
-        for i in range(1,5,1):
-            print "Создаем вакансию: " + str(i)
+        for i in xrange(5):
+            print "Создаем опыт работы: " + str(i)
             # Берем ID компании
             url = self.base_url + "company/?token=" + accessToken
             r = requests.get(url, self.head)

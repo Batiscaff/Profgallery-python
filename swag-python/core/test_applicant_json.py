@@ -164,7 +164,7 @@ class test_regUser(unittest.TestCase):
             functionList = [3800]
 
         else:
-            for i in range(0,randint(1,5)):
+            for i in xrange(randint(1,5)):
                 functionID = len(rest["items"][1]["element"])
                 functionID = randint(0,functionID) - 1
                 functionID = rest["items"][1]["child"][functionID]["element"]["id"]
@@ -345,7 +345,6 @@ class test_regUser(unittest.TestCase):
 
     def test_17_applicant_id_goal_update(self):
         url = self.base_url +"applicant/" + uid + "/goal/" + goalID +"/update/?token=" + accessToken
-
         userInfo = {
           "fieldName": "title",
           "fieldValue": "string"
