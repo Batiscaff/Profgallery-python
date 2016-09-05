@@ -153,7 +153,7 @@ class userComplitedPositive(unittest.TestCase):
                 rest = json.loads(r.text)
                 obj = randint(0, len(rest["items"]) - 1)
                 # obj =  3
-                if len(rest["items"][obj]["child"]) > 0 and randint(1, 1) == 1:
+                if len(rest["items"][obj]["child"]) > 0 and randint(0, 1) == 1:
 
                     structureType = \
                         rest["items"][obj]["child"][randint(0, len(rest["items"][obj]["child"])-1)]["element"][
