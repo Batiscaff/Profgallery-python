@@ -141,6 +141,7 @@ class test_regUser(unittest.TestCase):
         url = self.base_url + "user/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         print rest
         self.assertEqual(checkStatus, "success")
