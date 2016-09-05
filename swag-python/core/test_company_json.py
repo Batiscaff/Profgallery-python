@@ -259,5 +259,25 @@ class test_regUser(unittest.TestCase):
         print rest
         self.assertEqual(checkStatus,"success")
 
+    def test_13_company_patch(self):
+        url = self.base_url + "company/" + compId + "/patch/?token=" + accessToken
+        userInfo = {
+              "params": {
+                "addr": "string",
+                "addrMain": "string",
+                "url": "string",
+                "description": "string",
+                "structureType": "string",
+                "brand": "string"
+              }
+        }
+        r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus,"success")
+
+
+
 
 

@@ -247,7 +247,7 @@ class test_regUser(unittest.TestCase):
         global vacPropetyList
         vacPropetyList = []
 
-        for i in range(1, randint(2, 9)):
+        for i in xrange(1, randint(2, 9)):
             vacPropety = len(rest["items"]) - 1
             vacPropety = randint(0,vacPropety)
             vacPropety = rest["items"][vacPropety]["element"]["id"]

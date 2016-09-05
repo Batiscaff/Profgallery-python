@@ -14,7 +14,6 @@ class availabilityOf(unittest.TestCase):
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
-        print rest
         self.assertEqual(checkStatus,"success")
 
         url = self.base_url + "user/register/"
@@ -25,7 +24,6 @@ class availabilityOf(unittest.TestCase):
         r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
-        print rest
         self.assertEqual(checkStatus,"success")
         global uid
         uid = str(rest["items"]["id"])
@@ -33,8 +31,7 @@ class availabilityOf(unittest.TestCase):
         accessToken = str(rest["items"]["accessToken"])
 
     def test_01_applicant_id_experience_new(self):
-        for i in range(1,5,1):
-            print "Создаем вакансию: " + str(i)
+        for i in xrange(5):
             # Берем ID компании
             url = self.base_url + "company/?token=" + accessToken
             r = requests.get(url, self.head)
@@ -45,7 +42,7 @@ class availabilityOf(unittest.TestCase):
             companyID = rest["items"][companyID]["id"]
 
             # Берем ID индустрии
-            url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
+            url = self.base_url + "vocabulary/gejob_branch/tree/?token=" + accessToken
             r = requests.get(url, self.head)
             rest = json.loads(r.text)
             global indistryID
@@ -54,6 +51,7 @@ class availabilityOf(unittest.TestCase):
             indistryID = rest["items"][indistryID]["element"]["id"]
 
             url = self.base_url + "applicant/" + uid + "/experience/new/?token=" + accessToken
+            availability = randint(1,4)
             userInfo = {
                 "id": 0,
                 "type": 1,
@@ -69,53 +67,38 @@ class availabilityOf(unittest.TestCase):
                 "funcScount": 0,
                 "projectScount": 0,
                 "industryId": indistryID,
-                "availabilityOfCompany": i
+                "availabilityOfCompany": availability
             }
             r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
             rest = json.loads(r.text)
             checkStatus = rest["status"]
-            print rest
             self.assertEqual(checkStatus, "success")
             # Запоминаем созданный ID опыта работы
             expId = str(rest["items"]["id"])
 
-        # Проверяем видимость как прямой работодатель
-        url = self.base_url + "applicant/" + uid + "/experience/?token=" + accessToken + "&userRole=direct"
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        print rest
-        self.assertEqual(checkStatus, "success")
+            # Проверяем видимость как прямой работодатель
+            url = self.base_url + "applicant/" + uid + "/experience/?token=" + accessToken + "&userRole=direct"
+            r = requests.get(url, self.head)
+            rest = json.loads(r.text)
+            checkStatus = rest["status"]
+            self.assertEqual(checkStatus, "success")
 
-        i = 1
-        y = 0
-        while i < 4:
-            i += 1
-            y += 1
-            checkStatus = rest["items"][y]["companyId"]
-            print checkStatus
-            if (i == 2) or (i == 3):
-                self.assertEqual(checkStatus,False)
+            checkStatus = rest["items"][i]["companyId"]
+            if (availability == 2) or (availability == 3):
+                self.assertEqual(checkStatus, False)
             else:
-                self.assertNotEquals(checkStatus,False)
+                self.assertNotEquals(checkStatus, False)
 
 
-        # Проверяем видимость как прямой работодатель
-        url = self.base_url + "applicant/" + uid + "/experience/?token=" + accessToken + "&userRole=agency"
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        print rest
-        self.assertEqual(checkStatus, "success")
+            # Проверяем видимость как агентство
+            url = self.base_url + "applicant/" + uid + "/experience/?token=" + accessToken + "&userRole=agency"
+            r = requests.get(url, self.head)
+            rest = json.loads(r.text)
+            checkStatus = rest["status"]
+            self.assertEqual(checkStatus, "success")
 
-        i = 1
-        y = 0
-        while i < 4:
-            i += 1
-            y += 1
-            checkStatus = rest["items"][y]["companyId"]
-            print checkStatus
-            if (i == 2) or (i == 4):
+            checkStatus = rest["items"][i]["companyId"]
+            if (availability == 2) or (availability == 4):
                 self.assertEqual(checkStatus,False)
             else:
                 self.assertNotEquals(checkStatus,False)
