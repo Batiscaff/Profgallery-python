@@ -5,7 +5,7 @@ from selenium import webdriver
 
 class findEmploHeader(unittest.TestCase):
     def setUp(self):
-        self.base_url = "http://admin:hlj1ErT@Pg.fvds.ru"
+        self.base_url = "http://profgallery.com"
         self.webdriver = webdriver.Firefox()
 
     def tearDown(self):
