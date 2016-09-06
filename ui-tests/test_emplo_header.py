@@ -16,7 +16,7 @@ class findEmploHeader(unittest.TestCase):
         url = self.base_url
         driver.get(url + '/login')
         driver.find_element_by_id('uName').send_keys("sm@profgallery.com")
-        driver.find_element_by_id('uPassword').send_keys("123456")
+        driver.find_element_by_id('uPassword').send_keys("12378999")
         driver.find_element_by_xpath("//div[5]/div/input").click()
         self.webdriver.find_element_by_xpath("//a[contains(text(),'Поиск сотрудников')]".encode('utf-8'))
         driver.get(url + '/employee/cabinet/profile/')
