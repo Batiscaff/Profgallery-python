@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest, json, requests, time
+import unittest, json, requests, pytest
 
 username = ["Адам", "Вадим", "Евгений", "Никита",
             "Дмитрий"    "Михаил"]
@@ -145,32 +145,25 @@ class userComplitedPositive(unittest.TestCase):
         def test_04_applicant_exp(self):
             global expListId
             expListId = []
-            for i in xrange(randint(1,5)):
+            for i in xrange(randint(1,3)):
                 # Берем ID компании
                 url = self.base_url + "company/?token=" + accessToken
                 r = requests.get(url, self.head)
                 rest = json.loads(r.text)
-                companyID = len(rest["items"]) - 1
-                companyID = randint(0, companyID)
-                companyID = rest["items"][companyID]["id"]
+                companyID = rest["items"][randint(0,len(rest["items"]) - 1)]["id"]
 
                 # Берем ID индустрии
-                url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
+                url = self.base_url + "vocabulary/gejob_branch/tree/?token=" + accessToken
                 r = requests.get(url, self.head)
                 rest = json.loads(r.text)
-                global indistryID
-                indistryID = len(rest["items"]) - 1
-                indistryID = randint(0, indistryID)
-                indistryID = rest["items"][indistryID]["element"]["id"]
+                indistryID = rest["items"][randint(0,len(rest["items"]) - 1)]["element"]["id"]
 
                 # Берем gejob_position
                 url = self.base_url + "vocabulary/gejob_position/tree/?token=" + accessToken
                 r = requests.get(url, self.head)
                 rest = json.loads(r.text)
-                positionId = len(rest["items"]) - 1
-                positionId = randint(0, positionId)
                 global positionIdText
-                positionIdText = rest["items"][positionId]["element"]["title"]
+                positionIdText = rest["items"][randint(0,len(rest["items"]) - 1)]["element"]["title"]
 
                 url = self.base_url + "applicant/" + uid + "/experience/new/?token=" + accessToken
                 userInfo = {
@@ -192,7 +185,8 @@ class userComplitedPositive(unittest.TestCase):
                 rest = json.loads(r.text)
                 checkStatus = rest["status"]
                 self.assertEqual(checkStatus, "success")
-                expId = str(rest["items"]["id"])
+                expListId.append(rest["items"]["id"])
+                expId =  rest["items"]["id"]
 
                 # добавляяем Property
                 url = self.base_url + "vocabulary/grading/tree/?token=" + accessToken
@@ -210,12 +204,6 @@ class userComplitedPositive(unittest.TestCase):
                 self.assertEqual(checkStatus, "success")
 
         def test_05_search_build(self):
-            url = self.base_url + "applicant/" + uid + "/percent/?token=" + accessToken
-            r = requests.get(url, self.head)
-            rest = json.loads(r.text)
-            checkStatus = rest["status"]
-            self.assertEqual(checkStatus, "success")
-
             url = self.base_url + "search/build/?token=profTest"
             r = requests.get(url, self.head)
             rest = json.loads(r.text)
@@ -227,6 +215,7 @@ class userComplitedPositive(unittest.TestCase):
             rest = json.loads(r.text)
             checkStatus = rest["status"]
             self.assertEqual(checkStatus, "success")
+
             url = self.base_url + "search/applicant/?token=" + accessTokenRecruter
             userInfo = {
                     "text" : positionIdText
@@ -280,7 +269,6 @@ class userComplitedPositive(unittest.TestCase):
 
                     elif dice == "education":
                         for x in eduID:
-                            print x
                             url = self.base_url + "applicant/" + uid + "/education/" + x + "/delete/?token=" + accessToken
                             r = requests.get(url, self.head)
                             rest = json.loads(r.text)
@@ -334,5 +322,8 @@ class userComplitedPositive(unittest.TestCase):
             j = 0
             for i in xrange(0,len(rest["items"])):
                 userList.append(rest["items"][j]["user"]["id"])
-                j =+ 1
+                j += 1
             self.assertNotIn(uid,userList,"Пользователь с незаполненным полем в индексе!")
+
+if __name__ == '__main__':
+    pytest.main()
