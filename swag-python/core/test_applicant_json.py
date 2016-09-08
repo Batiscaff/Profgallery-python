@@ -89,7 +89,7 @@ class test_regUser(unittest.TestCase):
         companyID = rest["items"][companyID]["id"]
 
         #Берем ID индустрии
-        url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
+        url = self.base_url + "vocabulary/gejob_branch/tree/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         global indistryID
