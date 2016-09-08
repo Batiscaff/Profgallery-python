@@ -4,7 +4,7 @@
       <map>
         <entry key="C:\Python27\python.exe" value="true" />
         <entry key="C:\python35\python.exe" value="true" />
-        <entry key="C:\python\python.exe" value="false" />
+        <entry key="C:\python\python.exe" value="true" />
       </map>
     </option>
     <option name="SDK_TO_NOSETEST">
