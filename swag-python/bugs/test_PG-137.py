@@ -147,42 +147,43 @@ class requiredFileds(unittest.TestCase):
         url = self.base_url + "company/" + compId + "/percent/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
+        print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         checkStatus = rest["items"]["required"]["is_completed"]["status"]
         self.assertEqual(checkStatus, True)
 
-    def test_04_negative(self):
-        url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
-        requiredFields = ["structureType", "url"]
-
-        x = requiredFields.pop(randint(0,len(requiredFields)-1))
-        if x == "url":
-            url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
-            userInfo = {
-                "fieldName": "url",
-                "fieldValue": ""
-            }
-            requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
-            userInfo = {
-                "fieldName": "description",
-                "fieldValue": ""
-            }
-            requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
-
-        elif x == 'structureType':
-            url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
-            userInfo = {
-                "fieldName": "structureType",
-                "fieldValue": ""
-            }
-            requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
-
-        url = self.base_url + "company/" + compId + "/percent/?token=" + accessToken
-        print url
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
-        checkStatus = rest["items"]["required"]["is_completed"]["status"]
-        self.assertEqual(checkStatus, False)
+    # def test_04_negative(self):
+    #     url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
+    #     requiredFields = ["structureType", "url"]
+    #
+    #     x = requiredFields.pop(randint(0,len(requiredFields)-1))
+    #     if x == "url":
+    #         url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
+    #         userInfo = {
+    #             "fieldName": "url",
+    #             "fieldValue": ""
+    #         }
+    #         requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+    #         userInfo = {
+    #             "fieldName": "description",
+    #             "fieldValue": ""
+    #         }
+    #         requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+    #
+    #     elif x == 'structureType':
+    #         url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
+    #         userInfo = {
+    #             "fieldName": "structureType",
+    #             "fieldValue": ""
+    #         }
+    #         requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+    #
+    #     url = self.base_url + "company/" + compId + "/percent/?token=" + accessToken
+    #     print url
+    #     r = requests.get(url, self.head)
+    #     rest = json.loads(r.text)
+    #     checkStatus = rest["status"]
+    #     self.assertEqual(checkStatus, "success")
+    #     checkStatus = rest["items"]["required"]["is_completed"]["status"]
+    #     self.assertEqual(checkStatus, False)
