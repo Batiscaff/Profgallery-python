@@ -158,7 +158,6 @@ class requiredFileds(unittest.TestCase):
 
         x = requiredFields.pop(randint(0,len(requiredFields)-1))
         if x == "url":
-            print "url!"
             url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
             userInfo = {
                 "fieldName": "url",
@@ -172,7 +171,6 @@ class requiredFileds(unittest.TestCase):
             requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
 
         elif x == 'structureType':
-            print "structure!"
             url = self.base_url + "company/" + compId + "/update/?token=" + accessToken
             userInfo = {
                 "fieldName": "structureType",
