@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest, json, requests
+import unittest, json, requests, time
 
 username = ["Адам", "Вадим", "Евгений", "Никита",
-            "Дмитрий"    "Михаил"]
+            "Дмитрий",    "Михаил"]
 usersurname = ["ФамилияОдин", "ФамилияДва", "Фамилия3"]
 usermiddlename = ["ОтчествоОдин", "ОтчествоДва", "Отчетство3"]
 requiredFields = ["user", "education", "experience", "character"]
@@ -92,6 +92,12 @@ class userComplitedPositive(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
+        url = self.base_url + "search/reindex/?token=profTest"
+        r = requests.get(url, self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
+
     def test_01_user_update(self):
         url = self.base_url + "user/" + uid + "/update/multiple/?token=" + accessToken
         userInfo = {
@@ -139,6 +145,8 @@ class userComplitedPositive(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_02_applicant_edu(self):
+        global eduID
+        eduID = []
         for i in xrange(randint(1, 3)):
             url = self.base_url + "applicant/" + uid + "/education/new/?token=" + accessToken
             userInfo = {
@@ -163,15 +171,13 @@ class userComplitedPositive(unittest.TestCase):
             checkStatus = rest["status"]
             self.assertEqual(checkStatus, "success")
 
-            global eduID
-            eduID = []
-            eduID.append(str(rest["items"]["id"]))
+            eduID.append(rest["items"]["id"])
 
     def test_03_applicant_characteristic(self):
         url = self.base_url + "applicant/" + uid + "/characteristics/update/?token=" + accessToken
         project = randint(5, 10)
         managment = randint(5, 10)
-        totalExp = project + managment
+        totalExp = project + managment + 2
         userInfo = {
             "project": project,
             "totalExperience": totalExp,
@@ -224,25 +230,22 @@ class userComplitedPositive(unittest.TestCase):
             checkStatus = rest["status"]
             self.assertEqual(checkStatus, "success")
 
-    def test_05_search_build(self):
-        url = self.base_url + "search/reindex/?token=profTest"
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
+        time.sleep(1)
 
+    def test_05_search_build(self):
         url = self.base_url + "search/applicant/?token=" + accessTokenRecruter
         userInfo = {
-            "text": positionIdTitle
+            "text": positionIdTitle,
+            "limit": 100
         }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         userList = []
-        for i in xrange(len(rest["items"])):
-            userList.append(rest["items"][i]["user"]["id"])
-            i += 1
+        for i in xrange(len(rest["items"]['list'])):
+            userList.append(rest["items"]['list'][i]["user"]["id"])
+
         self.assertIn(uid, userList, "Созданный пользователь не в индексе!")
 
     def test_06_search_remove(self):
@@ -288,8 +291,8 @@ class userComplitedPositive(unittest.TestCase):
         elif dice == "experience":
             print "exp!"
             for i in xrange(len(expListId)):
-                url = self.base_url + "applicant/" + uid + "/experience/" + expListId[
-                    i] + "/delete/?token=" + accessToken
+                url = self.base_url + "applicant/" + uid + "/experience/" + expListId[i] + "/delete/?token=" + accessToken
+                print url
                 r = requests.get(url, self.head)
                 rest = json.loads(r.text)
                 checkStatus = rest["status"]
@@ -310,11 +313,7 @@ class userComplitedPositive(unittest.TestCase):
             checkStatus = rest["status"]
             self.assertEqual(checkStatus, "success")
 
-        url = self.base_url + "search/reindex/?token=profTest"
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        self.assertEqual(checkStatus, "success")
+        time.sleep(1)
 
         url = self.base_url + "search/applicant/?token=" + accessTokenRecruter
         userInfo = {
@@ -327,8 +326,8 @@ class userComplitedPositive(unittest.TestCase):
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         userList = []
-        for i in xrange(0, len(rest["items"])):
-            userList.append(rest["items"][i]["user"]["id"])
+        for i in xrange(0, len(rest["items"]["list"])):
+            userList.append(rest["items"]["list"][i]["user"]["id"])
             i += 1
         print userList
         self.assertNotIn(uid, userList, "Пользователь с незаполненным полем в индексе!")
