@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import unittest,sys
+import unittest,os
 
 from selenium import webdriver
 
@@ -16,8 +16,8 @@ class findEmploHeader(unittest.TestCase):
         driver = self.webdriver
         url = self.base_url
         driver.get(url + '/login')
-        driver.find_element_by_id('uName').send_keys("sm@profgallery.com")
-        driver.find_element_by_id('uPassword').send_keys(12378999)
+        driver.find_element_by_id('uName').send_keys(os.environ['applicant'])
+        driver.find_element_by_id('uPassword').send_keys(os.environ['applicantPassword'])
         driver.find_element_by_xpath("//div[5]/div/input").click()
         self.webdriver.find_element_by_xpath("//a[contains(text(),'Поиск сотрудников')]")
         driver.get(url + '/employee/cabinet/profile/')
@@ -31,8 +31,8 @@ class findEmploHeader(unittest.TestCase):
         driver = self.webdriver
         url = self.base_url
         driver.get(url + '/login')
-        driver.find_element_by_id('uName').send_keys("qauser0001@rambler.ru")
-        driver.find_element_by_id('uPassword').send_keys("12378999")
+        driver.find_element_by_id('uName').send_keys(os.environ['employer'])
+        driver.find_element_by_id('uPassword').send_keys(os.environ['employerPassword'])
         driver.find_element_by_xpath("//div[5]/div/input").click()
         self.webdriver.find_element_by_xpath("//a[contains(text(),'Эффективность профиля')]")
         driver.get(url + '/applicant/cabinet/poisk-vakansij/')
