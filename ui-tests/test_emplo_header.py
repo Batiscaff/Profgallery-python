@@ -45,5 +45,11 @@ class findEmploHeader(unittest.TestCase):
         driver.get(url + '/applicant/cabinet/messages/')
         self.webdriver.find_element_by_xpath("//a[contains(text(),'Эффективность профиля')]")
 
+    def test_03_about(self):
+        driver = self.webdriver
+        url = self.base_url
+        driver.get(url + "/about")
+        driver.find_element_by_xpath("//a[contains(@href, '/applicant/')]")
+
 
 
