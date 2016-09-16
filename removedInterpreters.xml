@@ -2,7 +2,6 @@
   <component name="PySdkService">
     <option name="REMOVED_SDKS">
       <set>
-        <option value="C:\Python27\python.exe" />
         <option value="C:\Users\ek\AppData\Local\Programs\Python\Python35-32\python.exe" />
         <option value="C:\Users\ek\Chrome\Scripts\python.exe" />
         <option value="C:\Users\ek\env\Scripts\python.exe" />
@@ -10,6 +9,7 @@
         <option value="C:\Users\ek\hsampo\Scripts\python.exe" />
         <option value="C:\Users\ek\kivy\Scripts\python.exe" />
         <option value="C:\Users\ek\pyqt\Scripts\python.exe" />
+        <option value="C:\Users\ek\swag1\Scripts\python.exe" />
         <option value="C:\Users\ek\swag\Scripts\python.exe" />
         <option value="C:\Users\ek\tkinter\Scripts\python.exe" />
         <option value="C:\python35\python.exe" />

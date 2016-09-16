@@ -3,6 +3,7 @@
     <option name="SDK_TO_PYTEST">
       <map>
         <entry key="C:\Python27\python.exe" value="true" />
+        <entry key="C:\Users\ek\profgallery\Scripts\python.exe" value="true" />
         <entry key="C:\Users\ek\swag\Scripts\python.exe" value="true" />
         <entry key="C:\python35\python.exe" value="true" />
         <entry key="C:\python\python.exe" value="true" />
@@ -11,12 +12,14 @@
     <option name="SDK_TO_NOSETEST">
       <map>
         <entry key="C:\Python27\python.exe" value="false" />
+        <entry key="C:\Users\ek\profgallery\Scripts\python.exe" value="false" />
         <entry key="C:\python\python.exe" value="false" />
       </map>
     </option>
     <option name="SDK_TO_ATTEST">
       <map>
         <entry key="C:\Python27\python.exe" value="false" />
+        <entry key="C:\Users\ek\profgallery\Scripts\python.exe" value="false" />
         <entry key="C:\python\python.exe" value="false" />
       </map>
     </option>
