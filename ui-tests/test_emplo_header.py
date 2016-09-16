@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import unittest,os
-
 from selenium import webdriver
 
 class findEmploHeader(unittest.TestCase):
@@ -15,6 +14,8 @@ class findEmploHeader(unittest.TestCase):
     def test_01_emplohead(self):
         driver = self.webdriver
         url = self.base_url
+        driver.get(url)
+        driver.find_element_by_xpath("//a[contains(@href, '/applicant/search/')]")
         driver.get(url + '/login')
         driver.find_element_by_id('uName').send_keys(os.environ['applicant'])
         driver.find_element_by_id('uPassword').send_keys(os.environ['applicantPassword'])
@@ -30,6 +31,8 @@ class findEmploHeader(unittest.TestCase):
     def test_02_applicant(self):
         driver = self.webdriver
         url = self.base_url
+        driver.get(url + '/employee/')
+        driver.find_element_by_xpath("//a[contains(@href, '/employee/search/')]")
         driver.get(url + '/login')
         driver.find_element_by_id('uName').send_keys(os.environ['employer'])
         driver.find_element_by_id('uPassword').send_keys(os.environ['employerPassword'])
