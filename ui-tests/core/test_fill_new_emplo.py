@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+from selenium_fixtures import app
+from model.loginuser import *
+
 def test_new_emplo(app):
    app[0].regPage()
    app[0].regEmployer()
