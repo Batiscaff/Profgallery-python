@@ -13,6 +13,6 @@ class setup(unittest.TestCase):
         print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-        my_file = open("../setup.txt", "w")
+        my_file = open("../../setup1.txt", "w")
         my_file.write(rest["message"])
         my_file.close()
