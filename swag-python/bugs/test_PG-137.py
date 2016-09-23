@@ -5,7 +5,7 @@ import unittest, json, requests
 
 class requiredFileds(unittest.TestCase):
     def setUp(self):
-        my_file = open("../core/setup.txt", "r")
+        my_file = open("../setup.txt", "r")
         self.base_url ="http://api-test.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json","testing-db": my_file.read()}
 

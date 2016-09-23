@@ -8,10 +8,11 @@ class setup(unittest.TestCase):
     def test_01(self):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
+        print r
         rest = json.loads(r.text)
         print rest
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
-        my_file = open("setup.txt", "w")
+        my_file = open("../setup.txt", "w")
         my_file.write(rest["message"])
         my_file.close()
