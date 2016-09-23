@@ -27,6 +27,7 @@ class Application(object):
     def regApplicant(self):
         driver = self.driver
         driver.maximize_window()
+        WebDriverWait(driver,10).until(lambda x: x.find_element(By.XPATH,"//input[@type='email']"))
         driver.find_element_by_xpath("//label").click()
         driver.find_element_by_xpath("//input[@type='email']").send_keys('test' + str(randint(1000, 9999)) + '@test.ru')
         driver.find_element_by_xpath("//input[@type='password']").send_keys('123456789')
@@ -36,6 +37,7 @@ class Application(object):
 
     def regEmployer(self):
         driver = self.driver
+        WebDriverWait(driver, 10).until(lambda x: x.find_element(By.XPATH, "//input[@type='email']"))
         driver.maximize_window()
         driver.find_element_by_xpath("//label[2]").click()
         # Запоминаем почту для верификации компании
