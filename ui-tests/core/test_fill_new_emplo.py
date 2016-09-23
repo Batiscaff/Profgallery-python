@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
-from selenium_fixtures import app
-from model.loginuser import *
-import time
-
-
 def test_new_emplo(app):
    app[0].regPage()
-   time.sleep(1)
    app[0].regEmployer()
    app[0].regCompanyAdmin()
    app[0].regCompany()
