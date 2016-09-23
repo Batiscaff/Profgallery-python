@@ -7,7 +7,7 @@ import unittest,json, requests,random
 
 class test_regUser(unittest.TestCase):
     def setUp(self):
-        my_file = open("../../../setup1.txt", "r")
+        my_file = open("setup.txt", "r")
         self.base_url ="http://api-test.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json","testing-db": my_file.read()}
 
