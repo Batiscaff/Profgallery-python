@@ -7,7 +7,7 @@ class setup(unittest.TestCase):
         self.base_url = "http://api-test.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    @allure.MASTER_HELPER.single_step("Инициализация тестовой базы")
+    @allure.MASTER_HELPER.step("Инициализируем тестовую базу")
     def test_01(self):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
