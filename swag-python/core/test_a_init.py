@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests, json, unittest,allure
 
-@allure.MASTER_HELPER.story("Инициализация тестов")
+@allure.MASTER_HELPER.testcase("Иницализация тестов")
 class setup(unittest.TestCase):
     def setUp(self):
         self.base_url = "http://api-test.corp.profgallery.ru/api/"
@@ -18,3 +18,4 @@ class setup(unittest.TestCase):
         my_file = open("setup.txt", "w")
         my_file.write(rest["message"])
         my_file.close()
+
