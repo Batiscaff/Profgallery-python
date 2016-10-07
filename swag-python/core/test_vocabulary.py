@@ -11,7 +11,7 @@ class test_regUser(unittest.TestCase):
         self.head = {"Content-Type": "application/json", "Accept": "application/json","testing-db": my_file.read()}
 
 
-    def test_a_register_user(self):
+    def test_01_register_user(self):
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -31,7 +31,7 @@ class test_regUser(unittest.TestCase):
         accessToken = str(rest["items"]["accessToken"])
 
 
-    def  test_vocabularies(self):
+    def  test_02_vocabularies(self):
          url = self.base_url + "vocabularies/?token=" + accessToken
          r = requests.get(url, self.head)
          rest = json.loads(r.text)
@@ -44,7 +44,7 @@ class test_regUser(unittest.TestCase):
          vocId = randint(0, vocId)
          vocId = str(rest["items"][vocId]["id"])
 
-    def test_vocabularies_id_items(self):
+    def test_03_vocabularies_id_items(self):
         url = self.base_url + "vocabulary/" + vocId +  "/items/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -52,14 +52,14 @@ class test_regUser(unittest.TestCase):
         print rest
         self.assertEqual(checkStatus,"success")
 
-    def test_vocabularies_id_tree(self):
+    def test_04_vocabularies_id_tree(self):
         url = self.base_url + "vocabulary/" + vocId +  "/tree/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
 
-    def test_vocabularies_id_search(self):
+    def test_05_vocabularies_id_search(self):
         url = self.base_url + "vocabulary/17/search/?search=%D0%B0%D0%B2%D1%82%D0%BE&token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -67,14 +67,14 @@ class test_regUser(unittest.TestCase):
         print rest
         self.assertEqual(checkStatus,"success")
 
-    def test_vocabularies_item_itemid_leveled(self):
+    def test_06_vocabularies_item_itemid_leveled(self):
         url = self.base_url + "vocabulary/" + vocId + "/leveled/?level=" + str(randint(0,3)) +"&token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
 
-    def test_vocabularies_item_itemid_compatible(self):
+    def test_07_vocabularies_item_itemid_compatible(self):
         url = self.base_url + "vocabulary/item/13604/compatible/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
@@ -82,7 +82,29 @@ class test_regUser(unittest.TestCase):
         print rest
         self.assertEqual(checkStatus,"success")
 
+    def test_08_vocabularies_options(self):
+        url = self.base_url + "vocabulary/options/?token=" + accessToken
+        userInfo = {
+                      "optionNames": [
+                        "jobSeekingStatus",
+                        "referrerType"
+                      ]
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
 
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_09_vocabularies_item(self):
+        url = self.base_url + "vocabulary/item/?token=" + accessToken
+        userInfo = {
+              "itemId": [
+                1,
+                2,
+                3
+              ]
+        }
+        r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        self.assertEqual(checkStatus, "success")
