@@ -10,6 +10,7 @@ class setup(unittest.TestCase):
 
     @allure.MASTER_HELPER.feature("Инициализация тестовой базы")
     @allure.MASTER_HELPER.severity(allure.MASTER_HELPER.severity_level.CRITICAL)
+    @allure.MASTER_HELPER.label("test01")
     def test_01(self):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
