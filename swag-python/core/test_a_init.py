@@ -8,14 +8,13 @@ class setup(unittest.TestCase):
         self.base_url = "http://api-test.corp.profgallery.ru/api/"
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    @allure.MASTER_HELPER.feature("Инициализация тестовой базы")
     @allure.MASTER_HELPER.severity(allure.MASTER_HELPER.severity_level.CRITICAL)
-    @allure.MASTER_HELPER.label("test01")
+    @allure.MASTER_HELPER.label("Запуск скрипта tests-init")
     def test_01(self):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
-        print rest
+        allure.MASTER_HELPER.attach("api responst",rest)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         my_file = open("setup.txt", "w")
