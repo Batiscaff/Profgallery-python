@@ -9,7 +9,7 @@ class setup(unittest.TestCase):
         self.head = {"Content-Type": "application/json", "Accept": "application/json"}
 
     @allure.MASTER_HELPER.severity(allure.MASTER_HELPER.severity_level.CRITICAL)
-    @allure.MASTER_HELPER.label("Запуск скрипта tests-init")
+    @allure.MASTER_HELPER.label(u"Запуск скрипта tests-init")
     def test_01(self):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
