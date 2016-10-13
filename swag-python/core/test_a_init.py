@@ -10,11 +10,11 @@ class setup(unittest.TestCase):
 
     @allure.MASTER_HELPER.severity(allure.MASTER_HELPER.severity_level.CRITICAL)
     def test_01(self):
-        allure.MASTER_HELPER.label("Лейбл1")
+        allure.MASTER_HELPER.feature("Запуск скрипта test-init")
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
-        allure.MASTER_HELPER.attach("api response",str(rest))
+        allure.MASTER_HELPER.attach("api response","hello-world",str(rest))
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         my_file = open("setup.txt", "w")
