@@ -14,7 +14,7 @@ class setup(unittest.TestCase):
         url = self.base_url + "tests-init/"
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
-        allure.MASTER_HELPER.attach("api response","hello-world",str(rest))
+        allure.MASTER_HELPER.attach("api response",str(rest))
         checkStatus = rest["status"]
         self.assertEqual(checkStatus, "success")
         my_file = open("setup.txt", "w")
