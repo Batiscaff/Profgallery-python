@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-
-import unittest,json, requests
+import unittest,json, requests,pytest
 
 
 class test_regUser(unittest.TestCase):
-
     def setUp(self):
         my_file = open("setup.txt", "r")
         self.base_url ="http://api-test.corp.profgallery.ru/api/"
@@ -99,6 +97,7 @@ class test_regUser(unittest.TestCase):
         self.assertEqual(checkStatus, "success")
 
     def test_01_vacancy(self):
+        pytest.skip(msg="Метод доступен только для админа")
         url = self.base_url + "vacancy/?token=" + accessToken
         r = requests.get(url, self.head)
         rest = json.loads(r.text)
@@ -110,38 +109,12 @@ class test_regUser(unittest.TestCase):
         vacId = randint(0,vacId)
         vacId = str(rest["items"][vacId]["id"])
 
-    def test_02_vacancy_id(self):
-        url = self.base_url + "vacancy/" + vacId +"/?token=" + accessToken
+    def test_05_vacancy_id(self):
+        url = self.base_url + "vacancy/" + vacIdCreate +"/?token=" + accessToken
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         self.assertEqual(checkStatus,"success")
-
-    # def test_03_vacancy_find(self):
-    #     #Берем случайный ID отрасли
-    #     url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
-    #     r = requests.get(url,self.head)
-    #     rest = json.loads(r.text)
-    #     indId =  rest["items"][randint(0,len(rest))]["element"]["id"]
-    #
-    #     url = self.base_url + "vacancy/find/?token=" + accessToken
-    #     userInfo = {
-    #       "industryId": indId,
-    #       "isDirect": "false"
-    #     }
-    #     r = requests.post(url=url,data=json.dumps(userInfo),headers=self.head)
-    #     rest = json.loads(r.text)
-    #     #Проверка на success
-    #     checkStatus = rest["status"]
-    #     print rest
-    #     self.assertEqual(checkStatus,"success")
-    #
-    #     #Проверка на пустой массив.
-    #     if len(rest["items"]) == 0:
-    #         pass
-    #     #Если не пустой - сравниваем ID отрасли любой вакансии и той отрасли, что мы забивал
-    #     else:
-    #         self.assertEqual(indId,rest["items"][randint(0,len(rest))]["industryId"])
 
     def test_04_vacancy_create(self):
         url = self.base_url + "vocabulary/17/tree/?token=" + accessToken
