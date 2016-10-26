@@ -8,8 +8,9 @@ global rest
 
 class userComplitedPositive(unittest.TestCase):
     def setUp(self):
-        self.base_url = "http://api-test.corp.profgallery.ru/api/"
-        self.head = {"Content-Type": "application/json", "Accept": "application/json"}
+        my_file = open("../setup.txt", "r")
+        self.base_url ="http://api-test.corp.profgallery.ru/api/"
+        self.head = {"Content-Type": "application/json", "Accept": "application/json","testing-db": my_file.read()}
 
     def user_update(self, userFileds):
         url = self.base_url + "user/" + uid + "/update/multiple/?token=" + accessToken

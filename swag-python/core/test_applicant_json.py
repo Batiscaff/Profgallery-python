@@ -2,22 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import unittest,json, requests,random
+import unittest,json, requests,random,allure
 
-
+@allure.MASTER_HELPER.story("Тестирование api/applicant")
 class test_regUser(unittest.TestCase):
     def setUp(self):
+        my_file = open("setup.txt", "r")
         self.base_url ="http://api-test.corp.profgallery.ru/api/"
-        self.head = {"Content-Type": "application/json", "Accept": "application/json"}
+        self.head = {"Content-Type": "application/json", "Accept": "application/json","testing-db": my_file.read()}
 
+    @allure.MASTER_HELPER.feature("Регистрация соискателя")
+    @allure.MASTER_HELPER.severity(allure.MASTER_HELPER.severity_level.BLOCKER)
     def test_00_register_user(self):
-        url = self.base_url + "tests-init/"
-        r = requests.get(url, self.head)
-        rest = json.loads(r.text)
-        checkStatus = rest["status"]
-        print rest
-        self.assertEqual(checkStatus,"success")
-
         url = self.base_url + "user/register/"
         userInfo = {
             "login": "test_" + str(randint(10000,99999)) + "@blalba.ru",
@@ -47,7 +43,6 @@ class test_regUser(unittest.TestCase):
 
     def test_01_applicant_id_percent(self):
         url = self.base_url +"applicant/" + uid + "/percent/?token=" + accessToken
-        print url
         r = requests.get(url,self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
@@ -498,6 +493,14 @@ class test_regUser(unittest.TestCase):
             "budget": 0
         }
         r = requests.post(url=url, data=json.dumps(userInfo), headers=self.head)
+        rest = json.loads(r.text)
+        checkStatus = rest["status"]
+        print rest
+        self.assertEqual(checkStatus, "success")
+
+    def test_29_applicant_view(self):
+        url = self.base_url + "applicant/" + uid + "/view/?token=" + accessToken
+        r = requests.get(url, self.head)
         rest = json.loads(r.text)
         checkStatus = rest["status"]
         print rest
